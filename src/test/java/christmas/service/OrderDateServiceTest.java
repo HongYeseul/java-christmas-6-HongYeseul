@@ -57,4 +57,20 @@ class OrderDateServiceTest {
         BigDecimal result = orderDateService.calculateSpecialSalePrice(orderDate);
         assertThat(result).isEqualTo(new BigDecimal("1000"));
     }
+
+    @Test
+    @DisplayName("[SUCCESS] 총 혜택 금액을 계산한다.")
+    void calculateTotalSalePrice(){
+        Integer desertCount = 2;
+        Integer mainMenuCount = 0;
+        BigDecimal result = orderDateService.calculateTotalSalePrice(
+                orderDateService.calculateDDaySalePrice(orderDate),
+                orderDateService.calculateWeekDaySalePrice(orderDate, desertCount),
+                orderDateService.calculateWeekendSalePrice(orderDate, mainMenuCount),
+                orderDateService.calculateSpecialSalePrice(orderDate),
+                true
+        );
+
+        assertThat(result).isEqualTo(new BigDecimal("31246"));
+    }
 }
