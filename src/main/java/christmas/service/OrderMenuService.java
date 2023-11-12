@@ -5,6 +5,7 @@ import christmas.DTO.OrderMenuResponseDTO;
 import christmas.model.customer.Order;
 import christmas.model.menu.Menu;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,5 +36,9 @@ public class OrderMenuService {
         }
         this.order = new Order(menuName, count);
         return new OrderMenuResponseDTO(menuName, count);
+    }
+
+    public BigDecimal calculateTotal(Order order) {
+        return order.getTotalPrice();
     }
 }
