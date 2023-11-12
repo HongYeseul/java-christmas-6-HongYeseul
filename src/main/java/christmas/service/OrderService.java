@@ -1,5 +1,6 @@
 package christmas.service;
 
+import christmas.model.EventBadge;
 import christmas.model.menu.Menu;
 
 import java.math.BigDecimal;
@@ -24,5 +25,9 @@ public class OrderService {
                     .add(new BigDecimal(Menu.CHAMPAGNE.getPrice()));
         }
         return totalPrice.subtract(salePrice);
+    }
+
+    public String makeEventBadge(BigDecimal salePrice) {
+        return EventBadge.getName(salePrice);
     }
 }
