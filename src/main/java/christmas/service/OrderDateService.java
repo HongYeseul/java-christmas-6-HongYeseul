@@ -43,4 +43,11 @@ public class OrderDateService {
         }
         return new BigDecimal("0");
     }
+
+    public BigDecimal calculateSpecialSalePrice(OrderDate orderDate) {
+        if (orderDate.isSpecialDay()) {
+            return new BigDecimal("1000");
+        }
+        return new BigDecimal("0");
+    }
 }
