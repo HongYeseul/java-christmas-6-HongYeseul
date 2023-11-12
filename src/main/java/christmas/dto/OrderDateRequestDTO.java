@@ -1,4 +1,4 @@
-package christmas.DTO;
+package christmas.dto;
 
 public record OrderDateRequestDTO(Integer date) {
 }

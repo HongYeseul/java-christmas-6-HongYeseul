@@ -1,7 +1,7 @@
 package christmas.service;
 
-import christmas.DTO.OrderDateRequestDTO;
-import christmas.DTO.OrderDateResponseDTO;
+import christmas.dto.OrderDateRequestDTO;
+import christmas.dto.OrderDateResponseDTO;
 import christmas.model.customer.OrderDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package christmas.DTO;
+package christmas.dto;
 
 import christmas.model.menu.Menu;
 
