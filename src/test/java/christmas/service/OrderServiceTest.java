@@ -34,4 +34,14 @@ class OrderServiceTest {
 
         assertThat(result).isEqualTo(new BigDecimal("31246"));
     }
+
+    @Test
+    @DisplayName("[SUCCESS] 할인 후 예상 결제 금액을 정상 반환힌디.")
+    void calculateTotalCharge(){
+        BigDecimal result = orderService.calculateTotalCharge(
+                new BigDecimal("142000"),
+                new BigDecimal("31246"),
+                true);
+        assertThat(result).isEqualTo(new BigDecimal("135754"));
+    }
 }
