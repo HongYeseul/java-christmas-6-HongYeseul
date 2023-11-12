@@ -41,4 +41,9 @@ public class OrderMenuService {
     public BigDecimal calculateTotal(Order order) {
         return order.getTotalPrice();
     }
+
+    public boolean hasAdditionalGift(Order order){
+        int result = order.getTotalPrice().compareTo(new BigDecimal("120000"));
+        return result == 0 || result > 0;
+    }
 }
