@@ -1,4 +1,4 @@
 package christmas.DTO;
 
-public record OrderDateRequestDTO() {
+public record OrderDateRequestDTO(Integer date) {
 }

@@ -10,9 +10,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class OrderDateServiceTest {
     @Test
     @DisplayName("[SUCESS] 날짜를 정상적인 값으로 입력하면 예외가 발생하지 않는다.")
-    void orderNormalPrice(){
+    void inputNormalDate(){
         OrderDateRequestDTO orderDateRequestDTO = new OrderDateRequestDTO(12);
         OrderDateResponseDTO orderDateResponseDTO = OrderDateService.inputOrderDate(orderDateRequestDTO);
-        assertThat(orderDateResponseDTO.date()).isEqualTo(8);
+        assertThat(orderDateResponseDTO.date()).isEqualTo(12);
     }
 }
