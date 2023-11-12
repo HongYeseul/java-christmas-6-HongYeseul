@@ -35,4 +35,12 @@ public class OrderDateService {
         }
         return new BigDecimal("0");
     }
+
+    public BigDecimal calculateWeekendSalePrice(OrderDate orderDate, Integer mainMenuCount) {
+        BigDecimal result = new BigDecimal("2023");
+        if (orderDate.isWeekend()) {
+            return result.multiply(BigDecimal.valueOf(mainMenuCount));
+        }
+        return new BigDecimal("0");
+    }
 }

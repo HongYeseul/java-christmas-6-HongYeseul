@@ -16,12 +16,21 @@ public class OrderDate {
     }
 
     public boolean isWeekDay() {
+        Week day = dayofWeek();
+        return day == Week.MONDAY
+                || day == Week.TUESDAY
+                || day == Week.WEDNESDAY
+                || day == Week.THURSDAY
+                || day == Week.SUNDAY;
+    }
+
+    public boolean isWeekend() {
+        Week day = dayofWeek();
+        return day == Week.FRIDAY || day == Week.SATURDAY;
+    }
+
+    private Week dayofWeek(){
         LocalDate localDate = LocalDate.of(2023, 12, date);
-        Week dayOfWeek = Week.getDay(localDate.getDayOfWeek().getValue());
-        return dayOfWeek == Week.MONDAY
-                || dayOfWeek == Week.TUESDAY
-                || dayOfWeek == Week.WEDNESDAY
-                || dayOfWeek == Week.THURSDAY
-                || dayOfWeek == Week.SUNDAY;
+        return Week.getDay(localDate.getDayOfWeek().getValue());
     }
 }
