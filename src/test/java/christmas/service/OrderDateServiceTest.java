@@ -54,6 +54,7 @@ class OrderDateServiceTest {
     @Test
     @DisplayName("[SUCCESS] 특별 할인 금액을 계산한다.")
     void calculateSpecialSalePrice(){
-
+        BigDecimal result = orderDateService.calculateSpecialSalePrice(orderDate);
+        assertThat(result).isEqualTo(new BigDecimal("1000"));
     }
 }
