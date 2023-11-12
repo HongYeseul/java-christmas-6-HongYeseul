@@ -44,4 +44,11 @@ class OrderServiceTest {
                 true);
         assertThat(result).isEqualTo(new BigDecimal("135754"));
     }
+
+    @Test
+    @DisplayName("[SUCCESS] 혜택 금액에 따른 이벤트 배지를 정상 반환한다.")
+    void makeEventBadge(){
+        String result = orderService.makeEventBadge(new BigDecimal("31246"));
+        assertThat(result).isEqualTo("산타");
+    }
 }
