@@ -25,8 +25,10 @@ class OrderMenuServiceTest {
     void init(){
         expectedOrderMenu.add(Menu.T_BONE_STAKE);
         expectedOrderMenu.add(Menu.BARBECUE_RIB);
+        expectedOrderMenu.add(Menu.CHOCO_CAKE);
         orderCount.add(1);
         orderCount.add(1);
+        orderCount.add(2);
         order = new Order(expectedOrderMenu, orderCount);
         expectedOrderMenuResponseDTO = new OrderMenuResponseDTO(expectedOrderMenu, orderCount);
     }
@@ -34,7 +36,7 @@ class OrderMenuServiceTest {
     @Test
     @DisplayName("[SUCESS] 주문을 정상적인 값으로 입력하면 예외가 발생하지 않는다.")
     void inputNormalOrder(){
-        OrderMenuRequestDTO orderMenuRequestDTO = new OrderMenuRequestDTO("티본스테이크-1,바비큐립-1");
+        OrderMenuRequestDTO orderMenuRequestDTO = new OrderMenuRequestDTO("티본스테이크-1,바비큐립-1,초코케이크-2");
         OrderMenuResponseDTO orderMenuResponseDTO = orderMenuService.inputOrder(orderMenuRequestDTO);
         assertThat(orderMenuResponseDTO).isEqualTo(expectedOrderMenuResponseDTO);
     }
@@ -43,6 +45,14 @@ class OrderMenuServiceTest {
     @DisplayName("[SUCCESS] 총 주문 금액을 계산할 수 있다.")
     void calculateTotal(){
         BigDecimal total = orderMenuService.calculateTotal(order);
-        assertThat(total).isEqualTo(new BigDecimal("109000"));
+        assertThat(total).isEqualTo(new BigDecimal("139000"));
     }
+
+    @Test
+    @DisplayName("[SUCCESS] 총 주문 금액을 계산하여 증정 메뉴가 있는지 판단한다.")
+    void isAdditionalGift(){
+        assertThat(orderMenuService.hasAdditionalGift(order)).isEqualTo(true);
+    }
+
+
 }
