@@ -46,7 +46,9 @@ class OrderDateServiceTest {
     @Test
     @DisplayName("[SUCCESS] 주말 할인 금액을 계산한다.")
     void calculateWeekendSalePrice(){
-
+        Integer mainMenuCount = 0;
+        BigDecimal result = orderDateService.calculateWeekendSalePrice(orderDate, mainMenuCount);
+        assertThat(result).isEqualTo(new BigDecimal("0"));
     }
 
     @Test
