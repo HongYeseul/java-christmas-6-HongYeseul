@@ -1,37 +1,53 @@
 package christmas.model.menu;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 public enum Menu {
-    APPETIZER("애피타이저", Arrays.asList(MenuType.BUTTON_MUSHROOM_SOUP, MenuType.TAPAS, MenuType.CAESAR_SALAD)),
-    MAIN_DISH("메인", Arrays.asList(MenuType.T_BONE_STAKE, MenuType.BARBECUE_RIB, MenuType.SEAFOOD_PASTA, MenuType.CHRISTMAS_PASTA)),
-    DESSERT("디저트", Arrays.asList(MenuType.CHOCO_CAKE, MenuType.ICE_CREAM)),
-    DRINK("음료", Arrays.asList(MenuType.ZERO_COKE, MenuType.RED_WINE, MenuType.CHAMPAGNE)),
-    EMPTY("없음", Collections.emptyList());
+    /*
+    * 애피타이저
+    * */
+    BUTTON_MUSHROOM_SOUP("애피타이저", "양송이수프", 6_000),
+    TAPAS("애피타이저", "타파스", 5_500),
+    CAESAR_SALAD("애피타이저", "시저샐러드", 8_000),
 
-    private String title;
-    private List<MenuType> menu;
+    /*
+    * 메인 메뉴
+    * */
+    T_BONE_STAKE("메인", "티본스테이크", 55_000),
+    BARBECUE_RIB("메인", "바비큐립", 54_000),
+    SEAFOOD_PASTA("메인", "해산물파스타", 35_000),
+    CHRISTMAS_PASTA("메인", "크리스마스파스타", 25_000),
 
-    Menu(String title, List<MenuType> menu){
+    /*
+    * 디저트
+    * */
+    CHOCO_CAKE("디저트", "초코케이크", 15_000),
+    ICE_CREAM("디저트", "아이스크림", 5_000),
+
+    /*
+    * 음료
+    * */
+    ZERO_COKE("음료", "제로콜라", 3_000),
+    RED_WINE("음료", "레드와인", 60_000),
+    CHAMPAGNE("음료", "샴페인", 25_000);
+
+    private final String title;
+    private final String menuName;
+    private final Integer menuPrice;
+
+    Menu(String title, String menuName, Integer menuPrice){
         this.title = title;
-        this.menu = menu;
-    }
-
-    public static Menu findByMenuType(MenuType menuType){
-        return Arrays.stream(Menu.values())
-                .filter(menuGroup -> menuGroup.hasMenuOrder(menuType))
-                .findAny()
-                .orElse(EMPTY);
-    }
-
-    public boolean hasMenuOrder(MenuType menuType){
-        return menu.stream()
-                .anyMatch(menu -> menu == menuType);
+        this.menuName = menuName;
+        this.menuPrice = menuPrice;
     }
 
     public String getTitle(){
         return title;
+    }
+
+    public String getName(){
+        return menuName;
+    }
+
+    public Integer getPrice(){
+        return menuPrice;
     }
 }

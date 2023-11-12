@@ -1,4 +1,8 @@
 package christmas.DTO;
 
-public record OrderMenuRequestDTO() {
+import christmas.model.menu.Menu;
+
+import java.util.List;
+
+public record OrderMenuRequestDTO(String order) {
 }
