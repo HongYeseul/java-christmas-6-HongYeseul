@@ -21,9 +21,10 @@ public class Order {
 
     public BigDecimal getTotalPrice(){
         BigDecimal total = BigDecimal.ZERO;
-        for (Menu menu : orderMenu) {
-            System.out.println(menu.getPrice());
-            total = total.add(new BigDecimal(menu.getPrice()));
+        for (int i=0; i<orderMenu.size(); i++) {
+            BigDecimal price = new BigDecimal(orderMenu.get(i).getPrice());
+            BigDecimal count = new BigDecimal(orderCount.get(i));
+            total = total.add(price.multiply(count));
         }
         return total;
     }
