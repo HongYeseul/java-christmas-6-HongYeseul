@@ -17,4 +17,12 @@ public class OrderService {
         }
         return result;
     }
+
+    public BigDecimal calculateTotalCharge(BigDecimal totalPrice, BigDecimal salePrice, boolean haveGift) {
+        if (haveGift) {
+            return totalPrice.subtract(salePrice)
+                    .add(new BigDecimal(Menu.CHAMPAGNE.getPrice()));
+        }
+        return totalPrice.subtract(salePrice);
+    }
 }
