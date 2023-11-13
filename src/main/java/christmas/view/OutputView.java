@@ -55,12 +55,29 @@ public class OutputView {
     public void benefitsDetail(BigDecimal dDay, BigDecimal weekDay, BigDecimal weekend, BigDecimal special, BigDecimal gift) {
         println();
         print(BENEFIT);
+        if(isNoneBenefit(dDay, weekDay, weekend, special, gift)){
+            print("없음");
+            println();
+            return;
+        }
+        printbenefitList(dDay, weekDay, weekend, special, gift);
+    }
+
+    private boolean isNoneBenefit(BigDecimal dDay, BigDecimal weekDay, BigDecimal weekend, BigDecimal special, BigDecimal gift) {
+        return ((dDay.signum() == 0)
+                && (weekDay.signum() == 0)
+                && (weekend.signum() == 0)
+                && (special.signum() == 0)
+                && (gift.signum() == 0));
+    }
+
+    private void printbenefitList(BigDecimal dDay, BigDecimal weekDay, BigDecimal weekend, BigDecimal special, BigDecimal gift) {
         print(
                 dDayBenefit(dDay)
-                + weekdayBenefit(weekDay)
-                + weekendBenefit(weekend)
-                + specialDayBenefit(special)
-                + giftBenefit(gift)
+                        + weekdayBenefit(weekDay)
+                        + weekendBenefit(weekend)
+                        + specialDayBenefit(special)
+                        + giftBenefit(gift)
         );
     }
 
