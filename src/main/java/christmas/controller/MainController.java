@@ -13,6 +13,7 @@ import christmas.view.OutputView;
 public class MainController {
     private DateController dateController;
     private MenuController menuController;
+    private OrderController orderController;
     private final InputView inputView;
     private final OutputView outputView;
     private final OrderDateService orderDateService;
@@ -39,6 +40,7 @@ public class MainController {
         OrderDateOuputDTO orderDateOuputDTO = dateController.askVisitDate();
         OrderMenuOuputDTO orderMenuOuputDTO = menuController.askOrder();
 
-
+        orderController = new OrderController(inputView, outputView, orderService, orderDateOuputDTO, orderMenuOuputDTO);
+        orderController.showBenefits();
     }
 }
