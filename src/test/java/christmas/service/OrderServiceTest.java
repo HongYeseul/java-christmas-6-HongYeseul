@@ -1,22 +1,39 @@
 package christmas.service;
 
+import christmas.dto.OrderDateOuputDTO;
+import christmas.dto.OrderMenuOuputDTO;
 import christmas.model.customer.OrderDate;
+import christmas.model.menu.Menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class OrderServiceTest {
     OrderService orderService = new OrderService();
     OrderDateService orderDateService = new OrderDateService();
+    List<Menu> expectedOrderMenu = new ArrayList<>();
+    List<Integer> orderCount = new ArrayList<>();
     OrderDate orderDate;
+    OrderDateOuputDTO orderDateOuputDTO;
+    OrderMenuOuputDTO orderMenuOuputDTO;
 
     @BeforeEach
     void init(){
         orderDate = new OrderDate(3);
+        orderDateOuputDTO = new OrderDateOuputDTO(3);
+        expectedOrderMenu.add(Menu.T_BONE_STAKE);
+        expectedOrderMenu.add(Menu.BARBECUE_RIB);
+        expectedOrderMenu.add(Menu.CHOCO_CAKE);
+        orderCount.add(1);
+        orderCount.add(1);
+        orderCount.add(2);
+        orderMenuOuputDTO = new OrderMenuOuputDTO(expectedOrderMenu, orderCount);
     }
 
     @Test
@@ -25,8 +42,8 @@ class OrderServiceTest {
         Integer desertCount = 2;
         Integer mainMenuCount = 0;
         BigDecimal result = orderService.calculateTotalSalePrice(
-                orderDateService.calculateDDaySalePrice(orderDate),
-                orderDateService.calculateWeekDaySalePrice(orderDate, desertCount),
+                orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
+                orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
                 orderDateService.calculateWeekendSalePrice(orderDate, mainMenuCount),
                 orderDateService.calculateSpecialSalePrice(orderDate),
                 true

@@ -2,12 +2,14 @@ package christmas.service;
 
 import christmas.dto.OrderDateInputDTO;
 import christmas.dto.OrderDateOuputDTO;
+import christmas.dto.OrderMenuOuputDTO;
+import christmas.model.customer.Order;
 import christmas.model.customer.OrderDate;
 
 import java.math.BigDecimal;
 
 public class OrderDateService {
-    private OrderDate orderDate;
+    OrderDate orderDate;
     /*
     * inputOrderDate: 고객이 식당 방문 날짜 입력시 DateDTO -> OrderDate 저장
     * */
@@ -18,21 +20,22 @@ public class OrderDateService {
 
     /**
      * 크리스마스 디데이 할인 금액 계산
-     * @param orderDate
-     * @return
      */
-    public BigDecimal calculateDDaySalePrice(OrderDate orderDate) {
+    public BigDecimal calculateDDaySalePrice(OrderDateOuputDTO orderDateOuputDTO) {
         // TODO: 크리스마스 이후 할인 없음
         BigDecimal result = new BigDecimal("1000");
+        OrderDate orderDate = new OrderDate(orderDateOuputDTO.date());
         return result.add(orderDate.saleFromXMasDDay());
     }
 
-    public BigDecimal calculateWeekDaySalePrice(OrderDate orderDate, Integer dessertCount) {
+    public BigDecimal calculateWeekDaySalePrice(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
         BigDecimal result = new BigDecimal("2023");
+        OrderDate orderDate = new OrderDate(orderDateOuputDTO.date());
+        Order order = new Order(orderMenuOuputDTO.menu(), orderMenuOuputDTO.menuCount());
         if (orderDate.isWeekDay()) {
-            return result.multiply(BigDecimal.valueOf(dessertCount));
+            return result.multiply(BigDecimal.valueOf(order.dessertCount()));
         }
-        return new BigDecimal("0");
+        return BigDecimal.ZERO;
     }
 
     public BigDecimal calculateWeekendSalePrice(OrderDate orderDate, Integer mainMenuCount) {
@@ -40,13 +43,17 @@ public class OrderDateService {
         if (orderDate.isWeekend()) {
             return result.multiply(BigDecimal.valueOf(mainMenuCount));
         }
-        return new BigDecimal("0");
+        return BigDecimal.ZERO;
     }
 
     public BigDecimal calculateSpecialSalePrice(OrderDate orderDate) {
         if (orderDate.isSpecialDay()) {
             return new BigDecimal("1000");
         }
-        return new BigDecimal("0");
+        return BigDecimal.ZERO;
+    }
+
+    public BigDecimal calculateGiftPrice() {
+        return BigDecimal.ZERO;
     }
 }

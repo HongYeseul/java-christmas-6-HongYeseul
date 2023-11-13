@@ -18,6 +18,16 @@ public class OuputMessage {
 
     public static final String BENEFIT = "<혜택 내역>";
 
+    public static final String CHRISTMAS_D_DAY_DISCOUNT = "크리스마스 디데이 할인: -";
+
+    public static final String WEEKDAY_DISCOUNT = "평일 할인: -";
+
+    public static final String WEEKEND_DISCOUNT = "특별 할인: -";
+
+    public static final String SPECIAL_DISCOUNT = "주말 할인: -";
+
+    public static final String GIFT_DISCOUNT = "증정 이벤트: -";
+
     public static final String TOTAL_BENEFIT_PRICE = "<총혜택 금액>";
 
     public static final String AFTER_DISCOUNT_TOTAL_PRICE = "<할인 후 예상 결제 금액>";

@@ -1,10 +1,12 @@
 package christmas.model.customer;
 
 import christmas.model.menu.Menu;
+import christmas.model.menu.MenuType;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Order {
     private List<Menu> orderMenu;
@@ -27,5 +29,11 @@ public class Order {
             total = total.add(price.multiply(count));
         }
         return total;
+    }
+
+    public long dessertCount() {
+        return IntStream.range(0, orderMenu.size())
+                .filter(i -> orderMenu.get(i).getTitle().equals(MenuType.DESSERT))
+                .map(i -> orderCount.get(i)).sum();
     }
 }

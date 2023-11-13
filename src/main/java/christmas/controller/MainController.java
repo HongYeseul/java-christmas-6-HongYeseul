@@ -1,8 +1,6 @@
 package christmas.controller;
 
-import christmas.dto.OrderDateInputDTO;
 import christmas.dto.OrderDateOuputDTO;
-import christmas.dto.OrderMenuInputDTO;
 import christmas.dto.OrderMenuOuputDTO;
 import christmas.service.OrderDateService;
 import christmas.service.OrderMenuService;
@@ -43,11 +41,23 @@ public class MainController {
         showBenefits(orderDateOuputDTO, orderMenuOuputDTO);
     }
 
-    public void showBenefits(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
+    private void showBenefits(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
         outputView.startBenefitPreview(orderDateOuputDTO);
         outputView.orderMenuList(orderMenuOuputDTO.getOrderList());
 
         outputView.totalOrderPrice(orderMenuService.calculateTotal(orderMenuOuputDTO));
         outputView.specialGift(orderMenuService.specialGift(orderMenuOuputDTO));
+
+        showBenefitsDetail(orderDateOuputDTO, orderMenuOuputDTO);
+    }
+
+    private void showBenefitsDetail(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
+        outputView.benefitsDetail(
+                orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
+                orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
+                orderDateService.calculateWeekendSalePrice(null, null),
+                orderDateService.calculateSpecialSalePrice(null),
+                orderDateService.calculateGiftPrice()
+        );
     }
 }
