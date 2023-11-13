@@ -42,7 +42,7 @@ public class OrderMenuService {
     public String specialGift(OrderMenuOuputDTO orderMenuOuputDTO) {
         Order order = new Order(orderMenuOuputDTO.menu(), orderMenuOuputDTO.menuCount());
         if (hasAdditionalGift(order)) {
-            return Menu.CHAMPAGNE.getName();
+            return Menu.CHAMPAGNE.getName() + " 1개";
         }
         return "없음";
     }
