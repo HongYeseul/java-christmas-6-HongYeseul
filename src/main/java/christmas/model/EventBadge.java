@@ -15,10 +15,6 @@ public enum EventBadge {
         this.charge = charge;
     }
 
-    public BigDecimal getCharge() {
-        return charge;
-    }
-
     public static String getName(BigDecimal charge) {
         EventBadge[] badges = EventBadge.values();
         for (EventBadge badge : badges) {
