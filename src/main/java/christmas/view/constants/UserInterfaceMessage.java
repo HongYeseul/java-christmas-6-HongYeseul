@@ -1,6 +1,6 @@
 package christmas.view.constants;
 
-public class OuputMessage {
+public class UserInterfaceMessage {
     // TODO: 12월은 유지보수 가능하도록 상수 치환
     public static final String START_EVENT_PLANNER_MESSAGE = """
             안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.
