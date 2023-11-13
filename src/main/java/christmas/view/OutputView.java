@@ -11,6 +11,7 @@ import static christmas.view.constants.OuputMessage.ASK_MENU_AND_COUNT;
 import static christmas.view.constants.OuputMessage.BEFORE_BENEFIT_TOTAL_PRICE;
 import static christmas.view.constants.OuputMessage.BENEFIT;
 import static christmas.view.constants.OuputMessage.CHRISTMAS_D_DAY_DISCOUNT;
+import static christmas.view.constants.OuputMessage.EVENT_BADGE;
 import static christmas.view.constants.OuputMessage.GIFT_DISCOUNT;
 import static christmas.view.constants.OuputMessage.ORDER_MENU;
 import static christmas.view.constants.OuputMessage.SHOW_EVENT_BENEFITS;
@@ -107,6 +108,12 @@ public class OutputView {
         println();
         print(AFTER_DISCOUNT_TOTAL_PRICE);
         printBigDecimal(result);
+    }
+
+    public void showEventBadge(String badge) {
+        println();
+        print(String.format(EVENT_BADGE, 12));
+        print(badge);
     }
 
     private void print(String message) {

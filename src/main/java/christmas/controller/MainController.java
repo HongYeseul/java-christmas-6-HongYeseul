@@ -19,6 +19,9 @@ public class MainController {
     private final OrderDateService orderDateService;
     private final OrderMenuService orderMenuService;
     private final OrderService orderService;
+
+    BigDecimal totalBenefit;
+
     public MainController(
             final InputView inputView,
             final OutputView outputView,
@@ -41,6 +44,7 @@ public class MainController {
         OrderMenuOuputDTO orderMenuOuputDTO = menuController.askOrder();
 
         showBenefits(orderDateOuputDTO, orderMenuOuputDTO);
+        showEventBadge(totalBenefit);
     }
 
     private void showBenefits(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
@@ -52,6 +56,7 @@ public class MainController {
 
         showBenefitsDetail(orderDateOuputDTO, orderMenuOuputDTO);
         showTotalBenefit(orderDateOuputDTO, orderMenuOuputDTO);
+        showResultPrice(totalBenefit, orderDateOuputDTO, orderMenuOuputDTO);
     }
 
     private void showBenefitsDetail(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
@@ -65,7 +70,7 @@ public class MainController {
     }
 
     private void showTotalBenefit(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
-        BigDecimal totalBenefit = orderService.calculateTotalSalePrice(
+        totalBenefit = orderService.calculateTotalSalePrice(
                 orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
                 orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
                 orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOuputDTO),
@@ -73,7 +78,6 @@ public class MainController {
                 orderMenuService.hasAdditionalGift(orderMenuOuputDTO)
         );
         outputView.showTotalBenefitPrice(totalBenefit);
-        showResultPrice(totalBenefit, orderDateOuputDTO, orderMenuOuputDTO);
     }
 
     private void showResultPrice(BigDecimal totalBenefit, OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
@@ -82,5 +86,9 @@ public class MainController {
                 totalBenefit,
                 orderMenuService.hasAdditionalGift(orderMenuOuputDTO));
         outputView.showResultPrice(resultBenefit);
+    }
+
+    private void showEventBadge(BigDecimal totalBenefit) {
+        outputView.showEventBadge(orderService.makeEventBadge(totalBenefit));
     }
 }
