@@ -34,7 +34,7 @@ class OrderMenuServiceTest {
     }
 
     @Test
-    @DisplayName("[SUCESS] 주문을 정상적인 값으로 입력하면 예외가 발생하지 않는다.")
+    @DisplayName("[SUCCESS] 주문을 정상적인 값으로 입력하면 예외가 발생하지 않는다.")
     void inputNormalOrder(){
         OrderMenuRequestDTO orderMenuRequestDTO = new OrderMenuRequestDTO("티본스테이크-1,바비큐립-1,초코케이크-2");
         OrderMenuResponseDTO orderMenuResponseDTO = orderMenuService.inputOrder(orderMenuRequestDTO);
