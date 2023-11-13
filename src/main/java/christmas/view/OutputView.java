@@ -2,7 +2,11 @@ package christmas.view;
 
 import christmas.dto.OrderDateOuputDTO;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+
 import static christmas.view.constants.OuputMessage.ASK_MENU_AND_COUNT;
+import static christmas.view.constants.OuputMessage.ORDER_MENU;
 import static christmas.view.constants.OuputMessage.SHOW_EVENT_BENEFITS;
 import static christmas.view.constants.OuputMessage.START_EVENT_PLANNER_MESSAGE;
 
@@ -25,5 +29,15 @@ public class OutputView {
 
     private void print(String message) {
         System.out.println(message);
+    }
+
+    private void printBigDecimal(BigDecimal number) {
+        NumberFormat format = NumberFormat.getInstance();
+        System.out.println(format.format(number));
+    }
+
+    public void totalOrderPrice(BigDecimal totalPrice) {
+        print(ORDER_MENU);
+        printBigDecimal(totalPrice);
     }
 }

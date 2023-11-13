@@ -40,7 +40,13 @@ public class MainController {
         OrderDateOuputDTO orderDateOuputDTO = dateController.askVisitDate();
         OrderMenuOuputDTO orderMenuOuputDTO = menuController.askOrder();
 
-        orderController = new OrderController(inputView, outputView, orderService, orderDateOuputDTO, orderMenuOuputDTO);
-        orderController.showBenefits();
+        showBenefits(orderDateOuputDTO, orderMenuOuputDTO);
+    }
+
+    public void showBenefits(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
+        outputView.startBenefitPreview(orderDateOuputDTO);
+        outputView.orderMenuList(orderMenuOuputDTO.getOrderList());
+
+        outputView.totalOrderPrice(orderMenuService.calculateTotal(orderMenuOuputDTO));
     }
 }

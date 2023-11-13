@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class OrderMenuService {
-    private Order order;
 
     /**
      * 고객이 주문하는 로직
@@ -34,11 +33,12 @@ public class OrderMenuService {
             }
             count.add(Integer.parseInt(menu[1]));
         }
-        this.order = new Order(menuName, count);
+//        this.order = new Order(menuName, count);
         return new OrderMenuOuputDTO(menuName, count);
     }
 
-    public BigDecimal calculateTotal(Order order) {
+    public BigDecimal calculateTotal(OrderMenuOuputDTO orderMenuOuputDTO) {
+        Order order = new Order(orderMenuOuputDTO.menu(), orderMenuOuputDTO.menuCount());
         return order.getTotalPrice();
     }
 
