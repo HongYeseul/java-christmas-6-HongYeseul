@@ -47,6 +47,9 @@ public class MainController {
         inputView.close();
     }
 
+    /**
+     * 모든 이벤트 혜택 출력 값을 처리하는 메서드
+     */
     private void showBenefits(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
         outputView.startBenefitPreview(orderDateOuputDTO);
         outputView.orderMenuList(orderMenuOuputDTO.getOrderList());
@@ -59,6 +62,10 @@ public class MainController {
         showResultPrice(totalBenefit, orderMenuOuputDTO);
     }
 
+    /**
+     * showBenefits()에서 호출
+     * <혜택 내역>을 출력하는 메서드
+     */
     private void showBenefitsDetail(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
         outputView.benefitsDetail(
                 orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
@@ -69,6 +76,10 @@ public class MainController {
         );
     }
 
+    /**
+     * showBenefits()에서 호출
+     * <총 혜택 금액>을 출력하는 메서드
+     */
     private void showTotalBenefit(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
         totalBenefit = orderService.calculateTotalSalePrice(
                 orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
@@ -80,6 +91,10 @@ public class MainController {
         outputView.showTotalBenefitPrice(totalBenefit);
     }
 
+    /**
+     * showBenefits()에서 호출
+     * <할인 후 예상 결제 금액>을 출력하는 메서드
+     */
     private void showResultPrice(BigDecimal totalBenefit, OrderMenuOuputDTO orderMenuOuputDTO) {
         BigDecimal resultBenefit = orderService.calculateTotalCharge(
                 orderMenuService.calculateTotal(orderMenuOuputDTO),
@@ -88,6 +103,9 @@ public class MainController {
         outputView.showResultPrice(resultBenefit);
     }
 
+    /**
+     * <이벤트 배지> 출력하는 메서드
+     */
     private void showEventBadge(BigDecimal totalBenefit) {
         outputView.showEventBadge(orderService.makeEventBadge(totalBenefit));
     }

@@ -6,6 +6,9 @@ import christmas.model.menu.Menu;
 import java.math.BigDecimal;
 
 public class OrderService {
+    /**
+     * <총 혜택 금액> 출력
+     */
     public BigDecimal calculateTotalSalePrice(
             BigDecimal dDaySale,
             BigDecimal weekDaySale,
@@ -19,6 +22,9 @@ public class OrderService {
         return result;
     }
 
+    /**
+     * <할인 후 예상 결제 금액> 출력
+     */
     public BigDecimal calculateTotalCharge(BigDecimal totalPrice, BigDecimal salePrice, boolean haveGift) {
         if (haveGift) {
             return totalPrice.subtract(salePrice)
@@ -27,6 +33,9 @@ public class OrderService {
         return totalPrice.subtract(salePrice);
     }
 
+    /**
+     * <이벤트 배지> 출력
+     */
     public String makeEventBadge(BigDecimal salePrice) {
         return EventBadge.getName(salePrice);
     }

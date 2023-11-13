@@ -27,11 +27,17 @@ public class OrderMenuService {
         return new OrderMenuOuputDTO(menuName, count);
     }
 
+    /**
+     * <할인 전 총주문 금액> 출력
+     */
     public BigDecimal calculateTotal(OrderMenuOuputDTO orderMenuOuputDTO) {
         Order order = new Order(orderMenuOuputDTO.menu(), orderMenuOuputDTO.menuCount());
         return order.getTotalPrice();
     }
 
+    /**
+     * <증정 메뉴> 출력
+     */
     public String specialGift(OrderMenuOuputDTO orderMenuOuputDTO) {
         if (hasAdditionalGift(orderMenuOuputDTO)) {
             return Menu.CHAMPAGNE.getName() + " 1개";
@@ -39,6 +45,10 @@ public class OrderMenuService {
         return "없음";
     }
 
+    /**
+     * 증정 메뉴가 있는지 판단
+     * : 12만원 이상 주문시 샴페인 증정
+     */
     public boolean hasAdditionalGift(OrderMenuOuputDTO orderMenuOuputDTO) {
         Order order = new Order(orderMenuOuputDTO.menu(), orderMenuOuputDTO.menuCount());
         int result = order.getTotalPrice()
