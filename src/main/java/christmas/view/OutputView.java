@@ -8,6 +8,7 @@ import static christmas.model.constants.Day.MONTH;
 import static christmas.view.constants.PriceFormat.KRW_FORMAT;
 import static christmas.view.constants.Threshold.MAKE_RESULT_NEGATIVE;
 import static christmas.view.constants.Threshold.NO_ITEM;
+import static christmas.view.constants.Threshold.NO_QUANTITY;
 import static christmas.view.constants.Threshold.POSITIVE_RESULT_THRESHOLD;
 import static christmas.view.constants.UserInterfaceMessage.AFTER_DISCOUNT_TOTAL_PRICE;
 import static christmas.view.constants.UserInterfaceMessage.ASK_MENU_AND_COUNT;
@@ -68,11 +69,11 @@ public class OutputView {
     }
 
     private boolean isNoneBenefit(BigDecimal dDay, BigDecimal weekDay, BigDecimal weekend, BigDecimal special, BigDecimal gift) {
-        return ((dDay.signum() == 0)
-                && (weekDay.signum() == 0)
-                && (weekend.signum() == 0)
-                && (special.signum() == 0)
-                && (gift.signum() == 0));
+        return ((dDay.signum() == NO_QUANTITY)
+                && (weekDay.signum() == NO_QUANTITY)
+                && (weekend.signum() == NO_QUANTITY)
+                && (special.signum() == NO_QUANTITY)
+                && (gift.signum() == NO_QUANTITY));
     }
 
     private void printbenefitList(BigDecimal dDay, BigDecimal weekDay, BigDecimal weekend, BigDecimal special, BigDecimal gift) {

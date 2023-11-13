@@ -8,4 +8,5 @@ public class Threshold {
     public static final BigDecimal MAKE_RESULT_NEGATIVE = new BigDecimal("-1");
 
     public static final String NO_ITEM = "없음";
+    public static final Integer NO_QUANTITY = 0;
 }
