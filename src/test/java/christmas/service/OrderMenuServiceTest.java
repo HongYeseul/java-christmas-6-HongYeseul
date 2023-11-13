@@ -51,6 +51,14 @@ class OrderMenuServiceTest {
     }
 
     @Test
+    @DisplayName("[ERROR] 음료만 주문하면 예외가 발생한다.")
+    void orderOnlyDrinks(){
+        OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO("레드와인-6");
+        assertThatThrownBy(() -> orderMenuService.inputOrder(orderMenuInputDTO))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
     @DisplayName("[SUCCESS] 총 주문 금액을 계산할 수 있다.")
     void calculateTotal(){
         OrderMenuOuputDTO orderMenuOuputDTO = new OrderMenuOuputDTO(expectedOrderMenu, orderCount);
