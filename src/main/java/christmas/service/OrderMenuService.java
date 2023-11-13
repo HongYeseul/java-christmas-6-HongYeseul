@@ -34,9 +34,13 @@ public class OrderMenuService {
             menuName.add(Menu.findByMenuName(menu[MENU_NAME_INDEX]));
             count.add(Integer.parseInt(menu[MENU_QUANTITY_INDEX]));
         });
+        inputOrderValidate(count, menuName);
+        return new OrderMenuOuputDTO(menuName, count);
+    }
+
+    private void inputOrderValidate(List<Integer> count, List<Menu> menuName) {
         MenuValidator.overThenMaximumQuentity(count.stream().mapToInt(i -> i).sum());
         MenuValidator.orderOnlyDrink(menuName);
-        return new OrderMenuOuputDTO(menuName, count);
     }
 
     /**
