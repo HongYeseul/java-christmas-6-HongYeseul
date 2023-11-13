@@ -6,6 +6,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static christmas.model.SpecialDay.specialDay;
+import static christmas.model.constants.Day.CHRISTMAS_DAY;
+import static christmas.model.constants.Day.MONTH;
+import static christmas.model.constants.Day.ONE_DAY;
+import static christmas.model.constants.Day.YEAR;
+import static christmas.model.constants.DiscountRate.CHRISTMAS_DISCOUNT_RATE;
 import static christmas.model.validator.DateValidator.checkValidDate;
 
 public class OrderDate {
@@ -16,7 +21,7 @@ public class OrderDate {
     }
 
     public BigDecimal saleFromXMasDDay() {
-        return new BigDecimal(Integer.toString((date - 1) * 100));
+        return new BigDecimal(Integer.toString((date - ONE_DAY) * CHRISTMAS_DISCOUNT_RATE));
     }
 
     public boolean isWeekDay() {
@@ -34,7 +39,7 @@ public class OrderDate {
     }
 
     private Week dayofWeek(){
-        LocalDate localDate = LocalDate.of(2023, 12, date);
+        LocalDate localDate = LocalDate.of(YEAR, MONTH, date);
         return Week.getDay(localDate.getDayOfWeek().getValue());
     }
 
@@ -44,6 +49,6 @@ public class OrderDate {
     }
 
     public boolean isAfterChristmas() {
-        return date > 25;
+        return date > CHRISTMAS_DAY;
     }
 }
