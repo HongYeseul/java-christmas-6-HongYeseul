@@ -44,6 +44,7 @@ public class MainController {
 
         showBenefits(orderDateOuputDTO, orderMenuOuputDTO);
         showEventBadge(totalBenefit);
+        inputView.close();
     }
 
     private void showBenefits(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
