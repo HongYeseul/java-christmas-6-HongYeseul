@@ -43,4 +43,8 @@ public class OrderDate {
         return specialDay.stream()
                 .anyMatch(specialDay -> specialDay.equals(date));
     }
+
+    public boolean isAfterChristmas() {
+        return date > 25;
+    }
 }
