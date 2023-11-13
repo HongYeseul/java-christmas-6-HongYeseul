@@ -1,7 +1,7 @@
 package christmas.service;
 
-import christmas.dto.OrderMenuRequestDTO;
-import christmas.dto.OrderMenuResponseDTO;
+import christmas.dto.OrderMenuInputDTO;
+import christmas.dto.OrderMenuOuputDTO;
 import christmas.model.customer.Order;
 import christmas.model.menu.Menu;
 
@@ -19,7 +19,7 @@ public class OrderMenuService {
      * @param orderMenuRequestDTO
      * @return
      */
-    public OrderMenuResponseDTO inputOrder(OrderMenuRequestDTO orderMenuRequestDTO) {
+    public OrderMenuOuputDTO inputOrder(OrderMenuInputDTO orderMenuRequestDTO) {
         String[] orderedMenu = orderMenuRequestDTO.order().split(",");
         List<Menu> menuName = new ArrayList<>();
         List<Integer> count = new ArrayList<>();
@@ -35,7 +35,7 @@ public class OrderMenuService {
             count.add(Integer.parseInt(menu[1]));
         }
         this.order = new Order(menuName, count);
-        return new OrderMenuResponseDTO(menuName, count);
+        return new OrderMenuOuputDTO(menuName, count);
     }
 
     public BigDecimal calculateTotal(Order order) {

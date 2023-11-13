@@ -1,7 +1,7 @@
 package christmas.service;
 
-import christmas.dto.OrderDateRequestDTO;
-import christmas.dto.OrderDateResponseDTO;
+import christmas.dto.OrderDateInputDTO;
+import christmas.dto.OrderDateOuputDTO;
 import christmas.model.customer.OrderDate;
 
 import java.math.BigDecimal;
@@ -11,9 +11,9 @@ public class OrderDateService {
     /*
     * inputOrderDate: 고객이 식당 방문 날짜 입력시 DateDTO -> OrderDate 저장
     * */
-    public OrderDateResponseDTO inputOrderDate(OrderDateRequestDTO requestDTO){
+    public OrderDateOuputDTO inputOrderDate(OrderDateInputDTO requestDTO){
         orderDate = new OrderDate(requestDTO.date());
-        return new OrderDateResponseDTO(requestDTO.date());
+        return new OrderDateOuputDTO(requestDTO.date());
     }
 
     /**

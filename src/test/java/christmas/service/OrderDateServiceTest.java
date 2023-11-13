@@ -1,7 +1,7 @@
 package christmas.service;
 
-import christmas.dto.OrderDateRequestDTO;
-import christmas.dto.OrderDateResponseDTO;
+import christmas.dto.OrderDateInputDTO;
+import christmas.dto.OrderDateOuputDTO;
 import christmas.model.customer.OrderDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,8 +23,8 @@ class OrderDateServiceTest {
     @Test
     @DisplayName("[SUCCESS] 날짜를 정상적인 값으로 입력하면 예외가 발생하지 않는다.")
     void inputNormalDate(){
-        OrderDateRequestDTO orderDateRequestDTO = new OrderDateRequestDTO(12);
-        OrderDateResponseDTO orderDateResponseDTO = orderDateService.inputOrderDate(orderDateRequestDTO);
+        OrderDateInputDTO orderDateRequestDTO = new OrderDateInputDTO(12);
+        OrderDateOuputDTO orderDateResponseDTO = orderDateService.inputOrderDate(orderDateRequestDTO);
         assertThat(orderDateResponseDTO.date()).isEqualTo(12);
     }
 

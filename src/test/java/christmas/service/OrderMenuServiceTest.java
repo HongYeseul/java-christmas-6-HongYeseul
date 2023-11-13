@@ -1,7 +1,7 @@
 package christmas.service;
 
-import christmas.dto.OrderMenuRequestDTO;
-import christmas.dto.OrderMenuResponseDTO;
+import christmas.dto.OrderMenuInputDTO;
+import christmas.dto.OrderMenuOuputDTO;
 import christmas.model.customer.Order;
 import christmas.model.menu.Menu;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +18,7 @@ class OrderMenuServiceTest {
     OrderMenuService orderMenuService = new OrderMenuService();
     List<Menu> expectedOrderMenu = new ArrayList<>();
     List<Integer> orderCount = new ArrayList<>();
-    OrderMenuResponseDTO expectedOrderMenuResponseDTO;
+    OrderMenuOuputDTO expectedOrderMenuResponseDTO;
     Order order;
 
     @BeforeEach
@@ -30,14 +30,14 @@ class OrderMenuServiceTest {
         orderCount.add(1);
         orderCount.add(2);
         order = new Order(expectedOrderMenu, orderCount);
-        expectedOrderMenuResponseDTO = new OrderMenuResponseDTO(expectedOrderMenu, orderCount);
+        expectedOrderMenuResponseDTO = new OrderMenuOuputDTO(expectedOrderMenu, orderCount);
     }
 
     @Test
     @DisplayName("[SUCCESS] 주문을 정상적인 값으로 입력하면 예외가 발생하지 않는다.")
     void inputNormalOrder(){
-        OrderMenuRequestDTO orderMenuRequestDTO = new OrderMenuRequestDTO("티본스테이크-1,바비큐립-1,초코케이크-2");
-        OrderMenuResponseDTO orderMenuResponseDTO = orderMenuService.inputOrder(orderMenuRequestDTO);
+        OrderMenuInputDTO orderMenuRequestDTO = new OrderMenuInputDTO("티본스테이크-1,바비큐립-1,초코케이크-2");
+        OrderMenuOuputDTO orderMenuResponseDTO = orderMenuService.inputOrder(orderMenuRequestDTO);
         assertThat(orderMenuResponseDTO).isEqualTo(expectedOrderMenuResponseDTO);
     }
 
