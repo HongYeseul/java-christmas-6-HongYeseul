@@ -4,7 +4,6 @@ import christmas.model.menu.Menu;
 import christmas.model.menu.MenuType;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -15,10 +14,6 @@ public class Order {
     public Order(List<Menu> order, List<Integer> orderCount){
         this.orderMenu = order;
         this.orderCount = orderCount;
-    }
-
-    public Integer getMenuTypeCount(){
-        return orderMenu.size();
     }
 
     public BigDecimal getTotalPrice(){
