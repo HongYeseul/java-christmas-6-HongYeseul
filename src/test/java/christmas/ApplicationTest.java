@@ -61,6 +61,15 @@ class ApplicationTest extends NsTest {
         });
     }
 
+    @Test
+    @DisplayName("[ERROR] 메뉴를 중복 입력시 예외가 발생한다.")
+    void orderDuplicatedMenu(){
+        assertSimpleTest(() -> {
+            runException("3", "티본스테이크-2,티본스테이크-1");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
     @Override
     protected void runMain() {
         Application.main(new String[]{});
