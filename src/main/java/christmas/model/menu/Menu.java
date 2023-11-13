@@ -1,7 +1,6 @@
 package christmas.model.menu;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public enum Menu {
     /*
@@ -40,6 +39,15 @@ public enum Menu {
         this.title = title;
         this.menuName = menuName;
         this.menuPrice = menuPrice;
+    }
+
+    public static Menu findByMenuName(String inputMenuName) {
+        for (Menu menu: Menu.values()) {
+            if (menu.menuName.equals(inputMenuName)) {
+                return menu;
+            }
+        }
+        return null;
     }
 
     public String getTitle(){

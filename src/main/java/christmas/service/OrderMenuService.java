@@ -8,14 +8,11 @@ import christmas.model.validator.MenuValidator;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class OrderMenuService {
     /**
      * 고객이 주문하는 로직
-     * 주문 성공시 반환: 사용자가 구문한 리스트
      */
     public OrderMenuOuputDTO inputOrder(OrderMenuInputDTO orderMenuInputDTO) {
         String[] orderedMenu = orderMenuInputDTO.order().split(",");
@@ -23,15 +20,8 @@ public class OrderMenuService {
         List<Integer> count = new ArrayList<>();
         for (String order : orderedMenu) {
             String[] menu = order.split("-");
-
             MenuValidator.hasMenu(menu[0]);
-
-            for (Menu men : Menu.values()) {
-                if (Objects.equals(menu[0], men.getName())) {
-                    menuName.add(men);
-                    break;
-                }
-            }
+            menuName.add(Menu.findByMenuName(menu[0]));
             count.add(Integer.parseInt(menu[1]));
         }
         return new OrderMenuOuputDTO(menuName, count);
