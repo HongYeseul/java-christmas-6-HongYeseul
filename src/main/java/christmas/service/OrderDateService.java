@@ -9,6 +9,10 @@ import christmas.model.menu.Menu;
 
 import java.math.BigDecimal;
 
+import static christmas.model.constants.DiscountRate.CHRISTMAS_DISCOUNT_DEFAULT_PRICE;
+import static christmas.model.constants.DiscountRate.SPECIAL_DAY_DISCOUNT;
+import static christmas.model.constants.DiscountRate.WEEK_AND_WEEKEND_DISCOUNT;
+
 public class OrderDateService {
     OrderDate orderDate;
     /**
@@ -23,23 +27,21 @@ public class OrderDateService {
      * 크리스마스 디데이 할인 금액 계산
      */
     public BigDecimal calculateDDaySalePrice(OrderDateOuputDTO orderDateOuputDTO) {
-        BigDecimal result = new BigDecimal("1000");
         OrderDate orderDate = new OrderDate(orderDateOuputDTO.date());
         if (orderDate.isAfterChristmas()) {
             return BigDecimal.ZERO;
         }
-        return result.add(orderDate.saleFromXMasDDay());
+        return CHRISTMAS_DISCOUNT_DEFAULT_PRICE.add(orderDate.saleFromXMasDDay());
     }
 
     /**
      * 평일 할인 금액 계산
      */
     public BigDecimal calculateWeekDaySalePrice(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
-        BigDecimal result = new BigDecimal("2023");
         OrderDate orderDate = new OrderDate(orderDateOuputDTO.date());
         Order order = new Order(orderMenuOuputDTO.menu(), orderMenuOuputDTO.menuCount());
         if (orderDate.isWeekDay()) {
-            return result.multiply(BigDecimal.valueOf(order.dessertCount()));
+            return WEEK_AND_WEEKEND_DISCOUNT.multiply(BigDecimal.valueOf(order.dessertCount()));
         }
         return BigDecimal.ZERO;
     }
@@ -48,12 +50,11 @@ public class OrderDateService {
      * 주말 할인 금액 계산
      */
     public BigDecimal calculateWeekendSalePrice(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
-        BigDecimal result = new BigDecimal("2023");
         OrderDate orderDate = new OrderDate(orderDateOuputDTO.date());
         Order order = new Order(orderMenuOuputDTO.menu(), orderMenuOuputDTO.menuCount());
 
         if (orderDate.isWeekend()) {
-            return result.multiply(BigDecimal.valueOf(order.mainDishCount()));
+            return WEEK_AND_WEEKEND_DISCOUNT.multiply(BigDecimal.valueOf(order.mainDishCount()));
         }
         return BigDecimal.ZERO;
     }
@@ -64,7 +65,7 @@ public class OrderDateService {
     public BigDecimal calculateSpecialSalePrice(OrderDateOuputDTO orderDateOuputDTO) {
         OrderDate orderDate = new OrderDate(orderDateOuputDTO.date());
         if (orderDate.isSpecialDay()) {
-            return new BigDecimal("1000");
+            return SPECIAL_DAY_DISCOUNT;
         }
         return BigDecimal.ZERO;
     }
