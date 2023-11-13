@@ -39,7 +39,8 @@ public class OrderMenuService {
     }
 
     private void inputOrderValidate(List<Integer> count, List<Menu> menuName) {
-        MenuValidator.overThenMaximumQuentity(count.stream().mapToInt(i -> i).sum());
+        MenuValidator.orderDuplicateMenu(menuName);
+        MenuValidator.overThenMaximumQuantity(count.stream().mapToInt(i -> i).sum());
         MenuValidator.orderOnlyDrink(menuName);
     }
 
