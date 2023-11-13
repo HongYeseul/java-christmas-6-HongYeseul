@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class Order {
-    private List<Menu> orderMenu;
-    private List<Integer> orderCount;
+    private final List<Menu> orderMenu;
+    private final List<Integer> orderCount;
 
     public Order(List<Menu> order, List<Integer> orderCount){
         this.orderMenu = order;
@@ -29,12 +29,12 @@ public class Order {
     public long dessertCount() {
         return IntStream.range(0, orderMenu.size())
                 .filter(i -> orderMenu.get(i).getTitle().equals(MenuType.DESSERT))
-                .map(i -> orderCount.get(i)).sum();
+                .map(orderCount::get).sum();
     }
 
     public long mainDishCount() {
         return IntStream.range(0, orderMenu.size())
                 .filter(i -> orderMenu.get(i).getTitle().equals(MenuType.MAIN_DISH))
-                .map(i -> orderCount.get(i)).sum();
+                .map(orderCount::get).sum();
     }
 }
