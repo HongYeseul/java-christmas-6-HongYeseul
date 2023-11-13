@@ -73,5 +73,14 @@ public class MainController {
                 orderMenuService.hasAdditionalGift(orderMenuOuputDTO)
         );
         outputView.showTotalBenefitPrice(totalBenefit);
+        showResultPrice(totalBenefit, orderDateOuputDTO, orderMenuOuputDTO);
+    }
+
+    private void showResultPrice(BigDecimal totalBenefit, OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
+        BigDecimal resultBenefit = orderService.calculateTotalCharge(
+                orderMenuService.calculateTotal(orderMenuOuputDTO),
+                totalBenefit,
+                orderMenuService.hasAdditionalGift(orderMenuOuputDTO));
+        outputView.showResultPrice(resultBenefit);
     }
 }

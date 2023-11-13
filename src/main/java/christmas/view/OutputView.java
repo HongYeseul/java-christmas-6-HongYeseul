@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import static christmas.view.constants.OuputMessage.AFTER_DISCOUNT_TOTAL_PRICE;
 import static christmas.view.constants.OuputMessage.ASK_MENU_AND_COUNT;
 import static christmas.view.constants.OuputMessage.BEFORE_BENEFIT_TOTAL_PRICE;
 import static christmas.view.constants.OuputMessage.BENEFIT;
@@ -100,6 +101,12 @@ public class OutputView {
     public void showTotalBenefitPrice(BigDecimal totalBenefit) {
         print(TOTAL_BENEFIT_PRICE);
         printBigDecimal(totalBenefit.multiply(new BigDecimal("-1")));
+    }
+
+    public void showResultPrice(BigDecimal result) {
+        println();
+        print(AFTER_DISCOUNT_TOTAL_PRICE);
+        printBigDecimal(result);
     }
 
     private void print(String message) {
