@@ -38,10 +38,13 @@ public class OrderDateService {
         return BigDecimal.ZERO;
     }
 
-    public BigDecimal calculateWeekendSalePrice(OrderDate orderDate, Integer mainMenuCount) {
+    public BigDecimal calculateWeekendSalePrice(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
         BigDecimal result = new BigDecimal("2023");
+        OrderDate orderDate = new OrderDate(orderDateOuputDTO.date());
+        Order order = new Order(orderMenuOuputDTO.menu(), orderMenuOuputDTO.menuCount());
+
         if (orderDate.isWeekend()) {
-            return result.multiply(BigDecimal.valueOf(mainMenuCount));
+            return result.multiply(BigDecimal.valueOf(order.mainDishCount()));
         }
         return BigDecimal.ZERO;
     }

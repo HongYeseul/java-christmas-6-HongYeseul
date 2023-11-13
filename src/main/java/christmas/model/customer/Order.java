@@ -36,4 +36,10 @@ public class Order {
                 .filter(i -> orderMenu.get(i).getTitle().equals(MenuType.DESSERT))
                 .map(i -> orderCount.get(i)).sum();
     }
+
+    public long mainDishCount() {
+        return IntStream.range(0, orderMenu.size())
+                .filter(i -> orderMenu.get(i).getTitle().equals(MenuType.MAIN_DISH))
+                .map(i -> orderCount.get(i)).sum();
+    }
 }

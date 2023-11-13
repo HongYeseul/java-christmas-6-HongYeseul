@@ -44,7 +44,7 @@ class OrderServiceTest {
         BigDecimal result = orderService.calculateTotalSalePrice(
                 orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
                 orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
-                orderDateService.calculateWeekendSalePrice(orderDate, mainMenuCount),
+                orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOuputDTO),
                 orderDateService.calculateSpecialSalePrice(orderDate),
                 true
         );
