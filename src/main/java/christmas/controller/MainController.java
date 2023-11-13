@@ -13,7 +13,6 @@ import java.math.BigDecimal;
 public class MainController {
     private DateController dateController;
     private MenuController menuController;
-    private OrderController orderController;
     private final InputView inputView;
     private final OutputView outputView;
     private final OrderDateService orderDateService;
@@ -56,7 +55,7 @@ public class MainController {
 
         showBenefitsDetail(orderDateOuputDTO, orderMenuOuputDTO);
         showTotalBenefit(orderDateOuputDTO, orderMenuOuputDTO);
-        showResultPrice(totalBenefit, orderDateOuputDTO, orderMenuOuputDTO);
+        showResultPrice(totalBenefit, orderMenuOuputDTO);
     }
 
     private void showBenefitsDetail(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
@@ -80,7 +79,7 @@ public class MainController {
         outputView.showTotalBenefitPrice(totalBenefit);
     }
 
-    private void showResultPrice(BigDecimal totalBenefit, OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
+    private void showResultPrice(BigDecimal totalBenefit, OrderMenuOuputDTO orderMenuOuputDTO) {
         BigDecimal resultBenefit = orderService.calculateTotalCharge(
                 orderMenuService.calculateTotal(orderMenuOuputDTO),
                 totalBenefit,
