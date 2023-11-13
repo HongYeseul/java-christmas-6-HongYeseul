@@ -8,6 +8,7 @@ import java.text.NumberFormat;
 import static christmas.view.constants.OuputMessage.ASK_MENU_AND_COUNT;
 import static christmas.view.constants.OuputMessage.ORDER_MENU;
 import static christmas.view.constants.OuputMessage.SHOW_EVENT_BENEFITS;
+import static christmas.view.constants.OuputMessage.SPECIAL_GIFT;
 import static christmas.view.constants.OuputMessage.START_EVENT_PLANNER_MESSAGE;
 
 public class OutputView {
@@ -27,10 +28,6 @@ public class OutputView {
         print(orderList);
     }
 
-    private void print(String message) {
-        System.out.println(message);
-    }
-
     private void printBigDecimal(BigDecimal number) {
         NumberFormat format = NumberFormat.getInstance();
         System.out.println(format.format(number));
@@ -39,5 +36,19 @@ public class OutputView {
     public void totalOrderPrice(BigDecimal totalPrice) {
         print(ORDER_MENU);
         printBigDecimal(totalPrice);
+    }
+
+    public void specialGift(String menu) {
+        println();
+        print(SPECIAL_GIFT);
+        print(menu);
+    }
+
+    private void print(String message) {
+        System.out.println(message);
+    }
+
+    private void println(){
+        System.out.print(System.lineSeparator());
     }
 }
