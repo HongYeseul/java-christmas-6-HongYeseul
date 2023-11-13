@@ -48,6 +48,7 @@ public class MainController {
         outputView.totalOrderPrice(orderMenuService.calculateTotal(orderMenuOuputDTO));
         outputView.specialGift(orderMenuService.specialGift(orderMenuOuputDTO));
 
+//        orderMenuService.hasAdditionalGift()
         showBenefitsDetail(orderDateOuputDTO, orderMenuOuputDTO);
     }
 

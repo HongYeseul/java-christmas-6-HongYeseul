@@ -52,6 +52,7 @@ class OrderMenuServiceTest {
     @Test
     @DisplayName("[SUCCESS] 총 주문 금액을 계산하여 증정 메뉴가 있는지 판단한다.")
     void isAdditionalGift(){
-        assertThat(orderMenuService.hasAdditionalGift(order)).isEqualTo(true);
+        OrderMenuOuputDTO orderMenuOuputDTO = new OrderMenuOuputDTO(expectedOrderMenu, orderCount);
+        assertThat(orderMenuService.hasAdditionalGift(orderMenuOuputDTO)).isEqualTo(true);
     }
 }

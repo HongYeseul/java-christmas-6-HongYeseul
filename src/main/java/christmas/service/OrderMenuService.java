@@ -40,15 +40,16 @@ public class OrderMenuService {
     }
 
     public String specialGift(OrderMenuOuputDTO orderMenuOuputDTO) {
-        Order order = new Order(orderMenuOuputDTO.menu(), orderMenuOuputDTO.menuCount());
-        if (hasAdditionalGift(order)) {
+        if (hasAdditionalGift(orderMenuOuputDTO)) {
             return Menu.CHAMPAGNE.getName() + " 1개";
         }
         return "없음";
     }
 
-    public boolean hasAdditionalGift(Order order) {
-        int result = order.getTotalPrice().compareTo(new BigDecimal("120000"));
+    public boolean hasAdditionalGift(OrderMenuOuputDTO orderMenuOuputDTO) {
+        Order order = new Order(orderMenuOuputDTO.menu(), orderMenuOuputDTO.menuCount());
+        int result = order.getTotalPrice()
+                .compareTo(new BigDecimal("120000"));
         return result == 0 || result > 0;
     }
 }
