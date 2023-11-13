@@ -2,8 +2,11 @@ package christmas;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
+import christmas.dto.OrderMenuInputDTO;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class ApplicationTest extends NsTest {
@@ -45,6 +48,15 @@ class ApplicationTest extends NsTest {
     void 주문_예외_테스트() {
         assertSimpleTest(() -> {
             runException("3", "제로콜라-a");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
+    @DisplayName("[ERROR] 메뉴를 0개 주문시 예외가 발생한다.")
+    void orderZeroQuantity(){
+        assertSimpleTest(() -> {
+            runException("3", "티본스테이크-0,바비큐립-5");
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         });
     }
