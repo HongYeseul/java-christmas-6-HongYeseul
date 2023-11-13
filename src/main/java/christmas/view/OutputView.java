@@ -47,14 +47,50 @@ public class OutputView {
     }
 
     public void benefitsDetail(BigDecimal dDay, BigDecimal weekDay, BigDecimal weekend, BigDecimal special, BigDecimal gift) {
+        println();
         print(BENEFIT);
         print(
-                CHRISTMAS_D_DAY_DISCOUNT + bigDecimalToString(dDay)
-                        + WEEKDAY_DISCOUNT + bigDecimalToString(weekDay)
-                        + WEEKEND_DISCOUNT + bigDecimalToString(weekend)
-                        + SPECIAL_DISCOUNT + bigDecimalToString(special)
-                        + GIFT_DISCOUNT + bigDecimalToString(gift)
+                dDayBenefit(dDay)
+                + weekdayBenefit(weekDay)
+                + weekendBenefit(weekend)
+                + specialDayBenefit(special)
+                + giftBenefit(gift)
         );
+    }
+
+    public String dDayBenefit(BigDecimal dDay) {
+        if (dDay.signum() == 1) {
+            return CHRISTMAS_D_DAY_DISCOUNT + bigDecimalToString(dDay) + System.lineSeparator();
+        }
+        return "";
+    }
+
+    public String weekdayBenefit(BigDecimal weekday) {
+        if (weekday.signum() == 1) {
+            return WEEKDAY_DISCOUNT + bigDecimalToString(weekday) + System.lineSeparator();
+        }
+        return "";
+    }
+
+    public String weekendBenefit(BigDecimal weekend) {
+        if (weekend.signum() == 1) {
+            return WEEKEND_DISCOUNT + bigDecimalToString(weekend) + System.lineSeparator();
+        }
+        return "";
+    }
+
+    public String specialDayBenefit(BigDecimal specialDay) {
+        if (specialDay.signum() == 1) {
+            return SPECIAL_DISCOUNT + bigDecimalToString(specialDay) + System.lineSeparator();
+        }
+        return "";
+    }
+
+    public String giftBenefit(BigDecimal gift) {
+        if (gift.signum() == 1) {
+            return GIFT_DISCOUNT + bigDecimalToString(gift) + System.lineSeparator();
+        }
+        return "";
     }
 
 
