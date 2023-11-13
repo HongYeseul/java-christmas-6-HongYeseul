@@ -5,6 +5,7 @@ import christmas.dto.OrderDateOuputDTO;
 import christmas.dto.OrderMenuOuputDTO;
 import christmas.model.customer.Order;
 import christmas.model.customer.OrderDate;
+import christmas.model.menu.Menu;
 
 import java.math.BigDecimal;
 
@@ -57,7 +58,10 @@ public class OrderDateService {
         return BigDecimal.ZERO;
     }
 
-    public BigDecimal calculateGiftPrice() {
+    public BigDecimal calculateGiftPrice(boolean hasGift) {
+        if (hasGift) {
+            return new BigDecimal(Menu.CHAMPAGNE.getPrice().toString());
+        }
         return BigDecimal.ZERO;
     }
 }

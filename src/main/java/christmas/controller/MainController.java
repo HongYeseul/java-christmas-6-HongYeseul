@@ -48,7 +48,6 @@ public class MainController {
         outputView.totalOrderPrice(orderMenuService.calculateTotal(orderMenuOuputDTO));
         outputView.specialGift(orderMenuService.specialGift(orderMenuOuputDTO));
 
-//        orderMenuService.hasAdditionalGift()
         showBenefitsDetail(orderDateOuputDTO, orderMenuOuputDTO);
     }
 
@@ -58,7 +57,7 @@ public class MainController {
                 orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
                 orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOuputDTO),
                 orderDateService.calculateSpecialSalePrice(orderDateOuputDTO),
-                orderDateService.calculateGiftPrice()
+                orderDateService.calculateGiftPrice(orderMenuService.hasAdditionalGift(orderMenuOuputDTO))
         );
     }
 }
