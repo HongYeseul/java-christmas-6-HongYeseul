@@ -28,13 +28,13 @@ public class Order {
 
     public long dessertCount() {
         return IntStream.range(0, orderMenu.size())
-                .filter(i -> orderMenu.get(i).getTitle().equals(MenuType.DESSERT))
+                .filter(i -> orderMenu.get(i).getType().equals(MenuType.DESSERT))
                 .map(orderCount::get).sum();
     }
 
     public long mainDishCount() {
         return IntStream.range(0, orderMenu.size())
-                .filter(i -> orderMenu.get(i).getTitle().equals(MenuType.MAIN_DISH))
+                .filter(i -> orderMenu.get(i).getType().equals(MenuType.MAIN_DISH))
                 .map(orderCount::get).sum();
     }
 }

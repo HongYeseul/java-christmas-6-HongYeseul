@@ -1,5 +1,9 @@
 package christmas.model.menu;
 
+import java.util.List;
+
+import static christmas.model.menu.MenuType.DRINK;
+
 public enum Menu {
     /*
     * 애피타이저
@@ -29,12 +33,12 @@ public enum Menu {
     RED_WINE("음료", "레드와인", 60_000),
     CHAMPAGNE("음료", "샴페인", 25_000);
 
-    private final String title;
+    private final String type;
     private final String menuName;
     private final Integer menuPrice;
 
     Menu(String title, String menuName, Integer menuPrice){
-        this.title = title;
+        this.type = title;
         this.menuName = menuName;
         this.menuPrice = menuPrice;
     }
@@ -48,8 +52,13 @@ public enum Menu {
         return null;
     }
 
-    public String getTitle(){
-        return title;
+    public static boolean findMenuTypeByMenuName(List<Menu> orderedMenu){
+        return orderedMenu.stream()
+                .allMatch(menu -> menu.type.equals(DRINK));
+    }
+
+    public String getType(){
+        return type;
     }
 
     public String getName(){

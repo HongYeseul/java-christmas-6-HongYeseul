@@ -3,9 +3,12 @@ package christmas.model.validator;
 import christmas.model.menu.Menu;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
+import static christmas.model.menu.Menu.findMenuTypeByMenuName;
 import static christmas.model.validator.ExceptionMessage.INVALID_MENU_ERROR_MESSAGE;
+import static christmas.model.validator.ExceptionMessage.INVALID_MENU_ORDER_ONLY_DRINK;
 import static christmas.model.validator.ExceptionMessage.INVALID_MENU_QUANTITY;
 import static christmas.service.constants.Threshold.MAXIMUM_QUANTITY;
 
@@ -20,6 +23,12 @@ public class MenuValidator {
     public static void overThenMaximumQuentity(Integer quantity) {
         if (quantity > MAXIMUM_QUANTITY) {
             throw new IllegalArgumentException(INVALID_MENU_QUANTITY);
+        }
+    }
+
+    public static void orderOnlyDrink(List<Menu> menuName) {
+        if (findMenuTypeByMenuName(menuName)) {
+            throw new IllegalArgumentException(INVALID_MENU_ORDER_ONLY_DRINK);
         }
     }
 }

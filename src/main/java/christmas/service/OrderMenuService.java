@@ -35,6 +35,7 @@ public class OrderMenuService {
             count.add(Integer.parseInt(menu[MENU_QUANTITY_INDEX]));
         });
         MenuValidator.overThenMaximumQuentity(count.stream().mapToInt(i -> i).sum());
+        MenuValidator.orderOnlyDrink(menuName);
         return new OrderMenuOuputDTO(menuName, count);
     }
 
