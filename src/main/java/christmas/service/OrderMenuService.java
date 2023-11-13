@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static christmas.model.validator.MenuValidator.overThenMaximumQuentity;
 import static christmas.service.constants.Separator.ITEM_QUANTITY_SEPARATOR;
 import static christmas.service.constants.Separator.MENU_ITEM_SEPARATOR;
 import static christmas.service.constants.Threshold.BIG_DECIMAL_RESULT_THRESHOLD;
@@ -34,6 +35,7 @@ public class OrderMenuService {
             menuName.add(Menu.findByMenuName(menu[MENU_NAME_INDEX]));
             count.add(Integer.parseInt(menu[MENU_QUANTITY_INDEX]));
         }
+        overThenMaximumQuentity(count.stream().mapToInt(i -> i).sum());
         return new OrderMenuOuputDTO(menuName, count);
     }
 

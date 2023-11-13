@@ -9,4 +9,6 @@ public class Threshold {
      * 기준값보다 이상인지 판단하는 용으로 사용되는 상수
      */
     public static final Integer BIG_DECIMAL_RESULT_THRESHOLD = 0;
+
+    public static final Integer MAXIMUM_QUANTITY = 20;
 }
