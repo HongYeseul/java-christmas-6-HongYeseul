@@ -4,9 +4,11 @@ import christmas.dto.OrderMenuInputDTO;
 import christmas.dto.OrderMenuOuputDTO;
 import christmas.model.customer.Order;
 import christmas.model.menu.Menu;
+import christmas.model.validator.MenuValidator;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,12 +18,13 @@ public class OrderMenuService {
      * 주문 성공시 반환: 사용자가 구문한 리스트
      */
     public OrderMenuOuputDTO inputOrder(OrderMenuInputDTO orderMenuInputDTO) {
-        // TODO: 주문 포맷이 안 맞을 경우 예외 처리는 되나, 아직 해당 메뉴가 메뉴판에 있는지 판단하는 로직은 없음
         String[] orderedMenu = orderMenuInputDTO.order().split(",");
         List<Menu> menuName = new ArrayList<>();
         List<Integer> count = new ArrayList<>();
         for (String order : orderedMenu) {
             String[] menu = order.split("-");
+
+            MenuValidator.hasMenu(menu[0]);
 
             for (Menu men : Menu.values()) {
                 if (Objects.equals(menu[0], men.getName())) {
@@ -31,7 +34,6 @@ public class OrderMenuService {
             }
             count.add(Integer.parseInt(menu[1]));
         }
-//        this.order = new Order(menuName, count);
         return new OrderMenuOuputDTO(menuName, count);
     }
 
