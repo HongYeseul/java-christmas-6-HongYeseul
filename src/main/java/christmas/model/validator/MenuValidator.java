@@ -39,10 +39,10 @@ public class MenuValidator {
 
     public static void orderDuplicateMenu(List<Menu> menuName) {
         Set<Menu> set = new HashSet<>();
-        int setSize = menuName.stream().filter(name -> !set.add(name))
-                        .collect(Collectors.toSet()).size();
-        if (setSize != menuName.size()) {
+        menuName.stream().filter(name -> !set.add(name))
+                        .collect(Collectors.toSet());
+        if (set.size() != menuName.size()) {
             throw new IllegalArgumentException(INVALID_DUPLICATE_MENU);
         }
-        }
     }
+}
