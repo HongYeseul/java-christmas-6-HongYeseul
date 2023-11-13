@@ -1,4 +1,4 @@
-package christmas.model.validator;
+package christmas.view.validator;
 
 public class ExceptionMessage {
 }
