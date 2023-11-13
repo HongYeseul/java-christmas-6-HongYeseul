@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import static christmas.view.constants.OuputMessage.ASK_MENU_AND_COUNT;
+import static christmas.view.constants.OuputMessage.BEFORE_BENEFIT_TOTAL_PRICE;
 import static christmas.view.constants.OuputMessage.BENEFIT;
 import static christmas.view.constants.OuputMessage.CHRISTMAS_D_DAY_DISCOUNT;
 import static christmas.view.constants.OuputMessage.GIFT_DISCOUNT;
@@ -15,6 +16,7 @@ import static christmas.view.constants.OuputMessage.SHOW_EVENT_BENEFITS;
 import static christmas.view.constants.OuputMessage.SPECIAL_DISCOUNT;
 import static christmas.view.constants.OuputMessage.SPECIAL_GIFT;
 import static christmas.view.constants.OuputMessage.START_EVENT_PLANNER_MESSAGE;
+import static christmas.view.constants.OuputMessage.TOTAL_BENEFIT_PRICE;
 import static christmas.view.constants.OuputMessage.WEEKDAY_DISCOUNT;
 import static christmas.view.constants.OuputMessage.WEEKEND_DISCOUNT;
 
@@ -32,11 +34,13 @@ public class OutputView {
     }
 
     public void orderMenuList(String orderList) {
+        println();
+        print(ORDER_MENU);
         print(orderList);
     }
 
     public void totalOrderPrice(BigDecimal totalPrice) {
-        print(ORDER_MENU);
+        print(BEFORE_BENEFIT_TOTAL_PRICE);
         printBigDecimal(totalPrice);
     }
 
@@ -93,6 +97,10 @@ public class OutputView {
         return "";
     }
 
+    public void showTotalBenefitPrice(BigDecimal totalBenefit) {
+        print(TOTAL_BENEFIT_PRICE);
+        printBigDecimal(totalBenefit.multiply(new BigDecimal("-1")));
+    }
 
     private void print(String message) {
         System.out.println(message);

@@ -8,6 +8,8 @@ import christmas.service.OrderService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
+import java.math.BigDecimal;
+
 public class MainController {
     private DateController dateController;
     private MenuController menuController;
@@ -49,6 +51,7 @@ public class MainController {
         outputView.specialGift(orderMenuService.specialGift(orderMenuOuputDTO));
 
         showBenefitsDetail(orderDateOuputDTO, orderMenuOuputDTO);
+        showTotalBenefit(orderDateOuputDTO, orderMenuOuputDTO);
     }
 
     private void showBenefitsDetail(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
@@ -59,5 +62,16 @@ public class MainController {
                 orderDateService.calculateSpecialSalePrice(orderDateOuputDTO),
                 orderDateService.calculateGiftPrice(orderMenuService.hasAdditionalGift(orderMenuOuputDTO))
         );
+    }
+
+    private void showTotalBenefit(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
+        BigDecimal totalBenefit = orderService.calculateTotalSalePrice(
+                orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
+                orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
+                orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOuputDTO),
+                orderDateService.calculateSpecialSalePrice(orderDateOuputDTO),
+                orderMenuService.hasAdditionalGift(orderMenuOuputDTO)
+        );
+        outputView.showTotalBenefitPrice(totalBenefit);
     }
 }
