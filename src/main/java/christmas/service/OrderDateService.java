@@ -23,9 +23,11 @@ public class OrderDateService {
      * 크리스마스 디데이 할인 금액 계산
      */
     public BigDecimal calculateDDaySalePrice(OrderDateOuputDTO orderDateOuputDTO) {
-        // TODO: 크리스마스 이후 할인 없음
         BigDecimal result = new BigDecimal("1000");
         OrderDate orderDate = new OrderDate(orderDateOuputDTO.date());
+        if (orderDate.isAfterChristmas()) {
+            return BigDecimal.ZERO;
+        }
         return result.add(orderDate.saleFromXMasDDay());
     }
 
