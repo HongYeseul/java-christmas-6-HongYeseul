@@ -19,6 +19,7 @@ public class MenuController {
      * 고객으로부터 주문할 메뉴와 개수를 입력받는 메서드
      */
     public OrderMenuOuputDTO askOrder() {
+        // TODO: 예외 while문 개선
         while (true) {
             try {
                 outputView.askMenuAndCount();
