@@ -39,8 +39,6 @@ class OrderServiceTest {
     @Test
     @DisplayName("[SUCCESS] 총 혜택 금액을 계산한다.")
     void calculateTotalSalePrice(){
-        Integer desertCount = 2;
-        Integer mainMenuCount = 0;
         BigDecimal result = orderService.calculateTotalSalePrice(
                 orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
                 orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
