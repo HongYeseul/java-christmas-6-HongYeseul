@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.dto.OrderDateInputDTO;
 import christmas.service.OrderDateService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -12,5 +13,10 @@ public class DateController {
         this.inputView = inputView;
         this.outputView = outputView;
         this.orderDateService = orderDateService;
+    }
+
+    public OrderDateInputDTO askVisitDate() {
+        outputView.startEventPlanner();
+        return new OrderDateInputDTO(inputView.readVisitDate());
     }
 }

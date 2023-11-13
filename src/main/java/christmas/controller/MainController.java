@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.dto.OrderDateInputDTO;
 import christmas.service.OrderDateService;
 import christmas.service.OrderMenuService;
 import christmas.service.OrderService;
@@ -32,6 +33,6 @@ public class MainController {
         dateController = new DateController(inputView, outputView, orderDateService);
         menuController = new MenuController(inputView, outputView, orderMenuService);
 
-
+        OrderDateInputDTO orderDateInputDTO = dateController.askVisitDate();
     }
 }

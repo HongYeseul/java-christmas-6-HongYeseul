@@ -10,4 +10,8 @@ public class InputView {
     public static void close(){
         Console.close();
     }
+
+    public Integer readVisitDate() {
+        return Integer.parseInt(readLine());
+    }
 }
