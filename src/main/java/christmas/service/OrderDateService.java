@@ -49,7 +49,8 @@ public class OrderDateService {
         return BigDecimal.ZERO;
     }
 
-    public BigDecimal calculateSpecialSalePrice(OrderDate orderDate) {
+    public BigDecimal calculateSpecialSalePrice(OrderDateOuputDTO orderDateOuputDTO) {
+        OrderDate orderDate = new OrderDate(orderDateOuputDTO.date());
         if (orderDate.isSpecialDay()) {
             return new BigDecimal("1000");
         }

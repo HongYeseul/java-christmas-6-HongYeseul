@@ -55,8 +55,8 @@ public class MainController {
         outputView.benefitsDetail(
                 orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
                 orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
-                orderDateService.calculateWeekendSalePrice(null, null),
-                orderDateService.calculateSpecialSalePrice(null),
+                orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOuputDTO),
+                orderDateService.calculateSpecialSalePrice(orderDateOuputDTO),
                 orderDateService.calculateGiftPrice()
         );
     }

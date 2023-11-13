@@ -61,7 +61,6 @@ class OrderDateServiceTest {
     @Test
     @DisplayName("[SUCCESS] 주말 할인 금액을 계산한다.")
     void calculateWeekendSalePrice(){
-        Integer mainMenuCount = 0;
         OrderDateOuputDTO orderDateOuputDTO = new OrderDateOuputDTO(3);
         BigDecimal result = orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOuputDTO);
         assertThat(result).isEqualTo(new BigDecimal("0"));
@@ -70,7 +69,8 @@ class OrderDateServiceTest {
     @Test
     @DisplayName("[SUCCESS] 특별 할인 금액을 계산한다.")
     void calculateSpecialSalePrice(){
-        BigDecimal result = orderDateService.calculateSpecialSalePrice(orderDate);
+        OrderDateOuputDTO orderDateOuputDTO = new OrderDateOuputDTO(3);
+        BigDecimal result = orderDateService.calculateSpecialSalePrice(orderDateOuputDTO);
         assertThat(result).isEqualTo(new BigDecimal("1000"));
     }
 }

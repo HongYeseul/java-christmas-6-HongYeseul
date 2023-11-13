@@ -45,7 +45,7 @@ class OrderServiceTest {
                 orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
                 orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
                 orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOuputDTO),
-                orderDateService.calculateSpecialSalePrice(orderDate),
+                orderDateService.calculateSpecialSalePrice(orderDateOuputDTO),
                 true
         );
 
