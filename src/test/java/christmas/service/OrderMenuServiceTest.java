@@ -59,6 +59,14 @@ class OrderMenuServiceTest {
     }
 
     @Test
+    @DisplayName("[ERROR] 중복된 메뉴 주문을 하면 예외가 발생한다..")
+    void orderDuplicateMenu(){
+        OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO("티본스테이크-1,티본스테이크-3");
+        assertThatThrownBy(() -> orderMenuService.inputOrder(orderMenuInputDTO))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
     @DisplayName("[SUCCESS] 총 주문 금액을 계산할 수 있다.")
     void calculateTotal(){
         OrderMenuOuputDTO orderMenuOuputDTO = new OrderMenuOuputDTO(expectedOrderMenu, orderCount);
