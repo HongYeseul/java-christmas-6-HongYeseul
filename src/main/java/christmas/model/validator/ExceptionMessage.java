@@ -1,4 +1,4 @@
-package christmas.view.validator;
+package christmas.model.validator;
 
 public class ExceptionMessage {
     public final static String ERROR_TAG = "[ERROR] ";

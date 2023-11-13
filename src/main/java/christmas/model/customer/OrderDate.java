@@ -1,18 +1,17 @@
 package christmas.model.customer;
 
-import christmas.model.SpecialDay;
 import christmas.model.Week;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
-import java.util.stream.IntStream;
 
 import static christmas.model.SpecialDay.specialDay;
+import static christmas.model.validator.DateValidator.checkValidDate;
 
 public class OrderDate {
     private final Integer date;
     public OrderDate(Integer date) {
+        checkValidDate(date);
         this.date = date;
     }
 
