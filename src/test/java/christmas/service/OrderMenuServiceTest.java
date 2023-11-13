@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class OrderMenuServiceTest {
     OrderMenuService orderMenuService = new OrderMenuService();
@@ -39,6 +40,14 @@ class OrderMenuServiceTest {
         OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO("티본스테이크-1,바비큐립-1,초코케이크-2");
         OrderMenuOuputDTO orderMenuOuputDTO = orderMenuService.inputOrder(orderMenuInputDTO);
         assertThat(orderMenuOuputDTO).isEqualTo(this.orderMenuOuputDTO);
+    }
+
+    @Test
+    @DisplayName("[ERROR] 메뉴를 20개보다 많이 주문하면 예외가 발생한다.")
+    void orderOverThenNormalQuantity(){
+        OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO("티본스테이크-10,바비큐립-5,초코케이크-6");
+        assertThatThrownBy(() -> orderMenuService.inputOrder(orderMenuInputDTO))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
