@@ -5,6 +5,7 @@ import christmas.dto.OrderDateInputDTO;
 import christmas.dto.OrderMenuInputDTO;
 
 import static christmas.view.validator.DateValidator.checkNumericInput;
+import static christmas.view.validator.MenuValidator.checkOrderFormatInput;
 
 public class InputView {
     public static String readLine(){
@@ -22,6 +23,8 @@ public class InputView {
     }
 
     public OrderMenuInputDTO readMenuAndCount() {
-        return new OrderMenuInputDTO(readLine());
+        String orderPlan = readLine();
+        checkOrderFormatInput(orderPlan);
+        return new OrderMenuInputDTO(orderPlan);
     }
 }

@@ -16,7 +16,13 @@ public class MenuController {
     }
 
     public OrderMenuOuputDTO askOrder() {
-        outputView.askMenuAndCount();
-        return orderMenuService.inputOrder(inputView.readMenuAndCount());
+        while (true) {
+            try {
+                outputView.askMenuAndCount();
+                return orderMenuService.inputOrder(inputView.readMenuAndCount());
+            } catch (IllegalArgumentException exception) {
+                outputView.errorMessage(exception.getMessage());
+            }
+        }
     }
 }

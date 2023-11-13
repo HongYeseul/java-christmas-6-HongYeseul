@@ -16,6 +16,7 @@ public class OrderMenuService {
      * 주문 성공시 반환: 사용자가 구문한 리스트
      */
     public OrderMenuOuputDTO inputOrder(OrderMenuInputDTO orderMenuInputDTO) {
+        // TODO: 주문 포맷이 안 맞을 경우 예외 처리는 되나, 아직 해당 메뉴가 메뉴판에 있는지 판단하는 로직은 없음
         String[] orderedMenu = orderMenuInputDTO.order().split(",");
         List<Menu> menuName = new ArrayList<>();
         List<Integer> count = new ArrayList<>();
