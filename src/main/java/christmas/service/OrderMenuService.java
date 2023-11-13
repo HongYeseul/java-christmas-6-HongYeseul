@@ -10,19 +10,29 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static christmas.service.constants.Separator.ITEM_QUANTITY_SEPARATOR;
+import static christmas.service.constants.Separator.MENU_ITEM_SEPARATOR;
+import static christmas.service.constants.Threshold.BIG_DECIMAL_RESULT_THRESHOLD;
+import static christmas.service.constants.Threshold.SPECIAL_GIFT_THRESHOLD;
+
 public class OrderMenuService {
+    private final static Integer MENU_NAME_INDEX = 0;
+    private final static Integer MENU_QUANTITY_INDEX = 1;
+    private final static String SPECIAL_GIFT_QUANTITY = " 1개";
+    private final static String NO_SPECIAL_GIFT = "없음";
+
     /**
      * 고객이 주문하는 로직
      */
     public OrderMenuOuputDTO inputOrder(OrderMenuInputDTO orderMenuInputDTO) {
-        String[] orderedMenu = orderMenuInputDTO.order().split(",");
+        String[] orderedMenu = orderMenuInputDTO.order().split(MENU_ITEM_SEPARATOR);
         List<Menu> menuName = new ArrayList<>();
         List<Integer> count = new ArrayList<>();
         for (String order : orderedMenu) {
-            String[] menu = order.split("-");
-            MenuValidator.hasMenu(menu[0]);
-            menuName.add(Menu.findByMenuName(menu[0]));
-            count.add(Integer.parseInt(menu[1]));
+            String[] menu = order.split(ITEM_QUANTITY_SEPARATOR);
+            MenuValidator.hasMenu(menu[MENU_NAME_INDEX]);
+            menuName.add(Menu.findByMenuName(menu[MENU_NAME_INDEX]));
+            count.add(Integer.parseInt(menu[MENU_QUANTITY_INDEX]));
         }
         return new OrderMenuOuputDTO(menuName, count);
     }
@@ -40,19 +50,20 @@ public class OrderMenuService {
      */
     public String specialGift(OrderMenuOuputDTO orderMenuOuputDTO) {
         if (hasAdditionalGift(orderMenuOuputDTO)) {
-            return Menu.CHAMPAGNE.getName() + " 1개";
+            return Menu.CHAMPAGNE.getName() + SPECIAL_GIFT_QUANTITY;
         }
-        return "없음";
+        return NO_SPECIAL_GIFT;
     }
 
     /**
      * 증정 메뉴가 있는지 판단
-     * : 12만원 이상 주문시 샴페인 증정
+     * : 12만원 이상 주문했는지 판단 후 샴페인 증정(return boolean)
      */
     public boolean hasAdditionalGift(OrderMenuOuputDTO orderMenuOuputDTO) {
         Order order = new Order(orderMenuOuputDTO.menu(), orderMenuOuputDTO.menuCount());
         int result = order.getTotalPrice()
-                .compareTo(new BigDecimal("120000"));
-        return result == 0 || result > 0;
+                .compareTo(SPECIAL_GIFT_THRESHOLD);
+        return result == BIG_DECIMAL_RESULT_THRESHOLD
+                || result > BIG_DECIMAL_RESULT_THRESHOLD;
     }
 }

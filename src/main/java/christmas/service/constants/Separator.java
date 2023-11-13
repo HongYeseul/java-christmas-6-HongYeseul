@@ -1,4 +1,4 @@
-package christmas.model.constants;
+package christmas.service.constants;
 
 public class Separator {
     public static final String MENU_ITEM_SEPARATOR = ",";
