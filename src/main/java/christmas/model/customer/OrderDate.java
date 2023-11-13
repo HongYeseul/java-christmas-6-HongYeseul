@@ -1,11 +1,11 @@
 package christmas.model.customer;
 
-import christmas.model.Week;
+import christmas.model.constants.Week;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static christmas.model.SpecialDay.specialDay;
+import static christmas.model.constants.SpecialDay.specialDay;
 import static christmas.model.constants.Day.CHRISTMAS_DAY;
 import static christmas.model.constants.Day.MONTH;
 import static christmas.model.constants.Day.ONE_DAY;

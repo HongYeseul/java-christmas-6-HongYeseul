@@ -1,6 +1,6 @@
 package christmas.service;
 
-import christmas.model.EventBadge;
+import christmas.model.constants.EventBadge;
 import christmas.model.menu.Menu;
 
 import java.math.BigDecimal;
