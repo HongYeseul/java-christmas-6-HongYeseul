@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.dto.OrderMenuOuputDTO;
 import christmas.service.OrderMenuService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -12,5 +13,10 @@ public class MenuController {
         this.inputView = inputView;
         this.outputView = outputView;
         this.orderMenuService = orderMenuService;
+    }
+
+    public OrderMenuOuputDTO askOrder() {
+        outputView.askMenuAndCount();
+        return orderMenuService.inputOrder(inputView.readMenuAndCount());
     }
 }

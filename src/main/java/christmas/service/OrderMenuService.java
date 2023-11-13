@@ -16,11 +16,11 @@ public class OrderMenuService {
     /**
      * 고객이 주문하는 로직
      * 주문 성공시 반환: 사용자가 구문한 리스트
-     * @param orderMenuRequestDTO
+     * @param orderMenuInputDTO
      * @return
      */
-    public OrderMenuOuputDTO inputOrder(OrderMenuInputDTO orderMenuRequestDTO) {
-        String[] orderedMenu = orderMenuRequestDTO.order().split(",");
+    public OrderMenuOuputDTO inputOrder(OrderMenuInputDTO orderMenuInputDTO) {
+        String[] orderedMenu = orderMenuInputDTO.order().split(",");
         List<Menu> menuName = new ArrayList<>();
         List<Integer> count = new ArrayList<>();
         for (String order : orderedMenu) {

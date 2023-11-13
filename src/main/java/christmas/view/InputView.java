@@ -1,6 +1,8 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.dto.OrderDateInputDTO;
+import christmas.dto.OrderMenuInputDTO;
 
 public class InputView {
     public static String readLine(){
@@ -11,7 +13,11 @@ public class InputView {
         Console.close();
     }
 
-    public Integer readVisitDate() {
-        return Integer.parseInt(readLine());
+    public OrderDateInputDTO readVisitDate() {
+        return new OrderDateInputDTO(Integer.parseInt(readLine()));
+    }
+
+    public OrderMenuInputDTO readMenuAndCount() {
+        return new OrderMenuInputDTO(readLine());
     }
 }
