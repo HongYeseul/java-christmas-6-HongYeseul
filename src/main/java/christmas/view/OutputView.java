@@ -21,6 +21,7 @@ import static christmas.view.constants.OuputMessage.START_EVENT_PLANNER_MESSAGE;
 import static christmas.view.constants.OuputMessage.TOTAL_BENEFIT_PRICE;
 import static christmas.view.constants.OuputMessage.WEEKDAY_DISCOUNT;
 import static christmas.view.constants.OuputMessage.WEEKEND_DISCOUNT;
+import static christmas.view.validator.ExceptionMessage.ERROR_TAG;
 
 public class OutputView {
     public void startEventPlanner(){
@@ -131,6 +132,10 @@ public class OutputView {
         println();
         print(String.format(EVENT_BADGE, 12));
         print(badge);
+    }
+
+    public void errorMessage(String message) {
+        print(ERROR_TAG + message);
     }
 
     private void print(String message) {

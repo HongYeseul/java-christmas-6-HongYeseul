@@ -16,7 +16,13 @@ public class DateController {
     }
 
     public OrderDateOuputDTO askVisitDate() {
-        outputView.startEventPlanner();
-        return orderDateService.inputOrderDate(inputView.readVisitDate());
+        while (true) {
+            try {
+                outputView.startEventPlanner();
+                return orderDateService.inputOrderDate(inputView.readVisitDate());
+            } catch (IllegalArgumentException exception) {
+                outputView.errorMessage(exception.getMessage());
+            }
+        }
     }
 }

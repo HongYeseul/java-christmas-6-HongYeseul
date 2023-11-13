@@ -2,7 +2,6 @@ package christmas.view.validator;
 
 import java.util.regex.Pattern;
 
-import static christmas.view.validator.ExceptionMessage.ERROR_TAG;
 import static christmas.view.validator.ExceptionMessage.INVALID_DATE_ERROR_MESSAGE;
 
 public class DateValidator {
@@ -14,6 +13,6 @@ public class DateValidator {
         if (NUMERIC.matcher(input).matches()) {
             return;
         }
-        throw new IllegalArgumentException(ERROR_TAG + INVALID_DATE_ERROR_MESSAGE);
+        throw new IllegalArgumentException(INVALID_DATE_ERROR_MESSAGE);
     }
 }
