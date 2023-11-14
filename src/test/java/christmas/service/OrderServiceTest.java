@@ -7,7 +7,6 @@ import christmas.model.customer.OrderDate;
 import christmas.model.menu.Menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -70,10 +69,17 @@ class OrderServiceTest {
         assertThat(result).isEqualTo(resultPrice);
     }
 
-    @Test
     @DisplayName("[SUCCESS] 혜택 금액에 따른 이벤트 배지를 정상 반환한다.")
-    void makeEventBadge(){
-        String result = orderService.makeEventBadge(new BigDecimal("31246"));
-        assertThat(result).isEqualTo("산타");
+    @ParameterizedTest(name = "혜택 금액: {0}, 반환되어야 하는 이벤트 배지: {1}")
+    @CsvSource({"5000, 별",
+            "10000, 트리",
+            "20000, 산타",
+            "4999, 없음",
+            "9999, 별",
+            "19999, 트리",
+            "20001, 산타"})
+    void makeEventBadge(BigDecimal benefit, String badge){
+        String result = orderService.makeEventBadge(benefit);
+        assertThat(result).isEqualTo(badge);
     }
 }
