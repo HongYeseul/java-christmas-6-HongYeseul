@@ -13,7 +13,7 @@ import java.util.List;
 
 import static christmas.service.constants.Separator.ITEM_QUANTITY_SEPARATOR;
 import static christmas.service.constants.Separator.MENU_ITEM_SEPARATOR;
-import static christmas.service.constants.Threshold.BIG_DECIMAL_RESULT_THRESHOLD;
+import static christmas.service.constants.Threshold.BIG_DECIMAL_FLAG_THRESHOLD;
 import static christmas.service.constants.Threshold.SPECIAL_GIFT_THRESHOLD;
 
 public class OrderMenuService {
@@ -70,7 +70,7 @@ public class OrderMenuService {
         Order order = new Order(orderMenuOuputDTO.menu(), orderMenuOuputDTO.menuCount());
         int result = order.getTotalPrice()
                 .compareTo(SPECIAL_GIFT_THRESHOLD);
-        return result == BIG_DECIMAL_RESULT_THRESHOLD
-                || result > BIG_DECIMAL_RESULT_THRESHOLD;
+        return result == BIG_DECIMAL_FLAG_THRESHOLD
+                || result > BIG_DECIMAL_FLAG_THRESHOLD;
     }
 }
