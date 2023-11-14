@@ -65,7 +65,7 @@ public class MainController {
         showResultPrice(totalBenefit, orderMenuOutputDTO);
     }
 
-    public void grantAdditionalBenefits(OrderDateOutputDTO orderDateOutputDTO, OrderMenuOutputDTO orderMenuOutputDTO) {
+    private void grantAdditionalBenefits(OrderDateOutputDTO orderDateOutputDTO, OrderMenuOutputDTO orderMenuOutputDTO) {
         if (haveBenefit(orderMenuOutputDTO)) {
             showBenefitsDetail(orderDateOutputDTO, orderMenuOutputDTO, HAVE_BENEFIT);
             showTotalBenefit(orderDateOutputDTO, orderMenuOutputDTO, HAVE_BENEFIT);
@@ -75,7 +75,7 @@ public class MainController {
         showTotalBenefit(orderDateOutputDTO, orderMenuOutputDTO, NONE_BENEFIT);
     }
 
-    private boolean haveBenefit(OrderMenuOutputDTO orderMenuOutputDTO) {
+    public boolean haveBenefit(OrderMenuOutputDTO orderMenuOutputDTO) {
         return orderMenuService.calculateTotal(orderMenuOutputDTO)
                 .compareTo(MINIMUM_DISCOUNT_AMOUNT) > BIG_DECIMAL_FLAG_THRESHOLD;
     }
