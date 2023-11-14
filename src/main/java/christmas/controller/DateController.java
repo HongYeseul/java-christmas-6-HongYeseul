@@ -19,10 +19,11 @@ public class DateController {
      * 고객으로부터 식당 예상 방문 날짜 입력 받는 메서드
      */
     public OrderDateOuputDTO askVisitDate() {
+        outputView.startEventPlanner();
         // TODO: 예외 while문 개선
         while (true) {
             try {
-                outputView.startEventPlanner();
+                outputView.askPlannedDate();
                 return orderDateService.inputOrderDate(inputView.readVisitDate());
             } catch (IllegalArgumentException exception) {
                 outputView.errorMessage(exception.getMessage());
