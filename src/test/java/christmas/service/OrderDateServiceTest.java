@@ -84,11 +84,12 @@ class OrderDateServiceTest {
         assertThat(result).isEqualTo(discount);
     }
 
-    @Test
     @DisplayName("[SUCCESS] 특별 할인 금액을 계산한다.")
-    void calculateSpecialSalePrice(){
-        OrderDateOuputDTO orderDateOuputDTO = new OrderDateOuputDTO(3);
+    @ParameterizedTest(name = "예상 방문 날짜: {0}, 반환되어야 하는 특별 할인 금액: {1}")
+    @CsvSource({"3, 1000", "25, 1000", "15, 0"})
+    void calculateSpecialSalePrice(int plannedDate,BigDecimal discount){
+        OrderDateOuputDTO orderDateOuputDTO = new OrderDateOuputDTO(plannedDate);
         BigDecimal result = orderDateService.calculateSpecialSalePrice(orderDateOuputDTO);
-        assertThat(result).isEqualTo(new BigDecimal("1000"));
+        assertThat(result).isEqualTo(discount);
     }
 }
