@@ -44,12 +44,13 @@ public enum Menu {
     }
 
     public static Menu findByMenuName(String inputMenuName) {
+        Menu findedMenu = null;
         for (Menu menu: Menu.values()) {
             if (menu.menuName.equals(inputMenuName)) {
-                return menu;
+                findedMenu = menu;
             }
         }
-        return null;
+        return findedMenu;
     }
 
     public static boolean findMenuTypeByMenuName(List<Menu> orderedMenu){
