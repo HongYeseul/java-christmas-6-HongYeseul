@@ -21,6 +21,7 @@ import static christmas.view.constants.UserInterfaceMessage.ORDER_MENU;
 import static christmas.view.constants.UserInterfaceMessage.SHOW_EVENT_BENEFITS;
 import static christmas.view.constants.UserInterfaceMessage.SPECIAL_DISCOUNT;
 import static christmas.view.constants.UserInterfaceMessage.SPECIAL_GIFT;
+import static christmas.view.constants.UserInterfaceMessage.ASK_PLANNED_DATE;
 import static christmas.view.constants.UserInterfaceMessage.START_EVENT_PLANNER_MESSAGE;
 import static christmas.view.constants.UserInterfaceMessage.TOTAL_BENEFIT_PRICE;
 import static christmas.view.constants.UserInterfaceMessage.WEEKDAY_DISCOUNT;
@@ -29,7 +30,11 @@ import static christmas.view.validator.ExceptionMessage.ERROR_TAG;
 
 public class OutputView {
     public void startEventPlanner(){
-        print(START_EVENT_PLANNER_MESSAGE);
+        print(String.format(START_EVENT_PLANNER_MESSAGE, MONTH));
+    }
+
+    public void askPlannedDate(){
+        print(String.format(ASK_PLANNED_DATE, MONTH));
     }
 
     public void askMenuAndCount() {
