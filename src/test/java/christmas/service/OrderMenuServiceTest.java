@@ -81,7 +81,7 @@ class OrderMenuServiceTest {
     }
 
     @DisplayName("[SUCCESS] 총 주문 금액을 계산할 수 있다.")
-    @ParameterizedTest(name = "예상 방문 날짜: {0}, 반환되어야 하는 총 주문 금액: {1}")
+    @ParameterizedTest(name = "주문 메뉴 및 개수: {0}, 반환되어야 하는 총 주문 금액: {1}")
     @CsvSource({"'타파스-1,제로콜라-1', 8500",
             "'티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1', 142000",
             "'아이스크림-2', 10000"})
@@ -91,10 +91,14 @@ class OrderMenuServiceTest {
         assertThat(total).isEqualTo(totalPrice);
     }
 
-    @Test
-    @DisplayName("[SUCCESS] 총 주문 금액을 계산하여 증정 메뉴가 있는지 판단한다.")
-    void isAdditionalGift(){
-        OrderMenuOuputDTO orderMenuOuputDTO = new OrderMenuOuputDTO(expectedOrderMenu, orderCount);
-        assertThat(orderMenuService.hasAdditionalGift(orderMenuOuputDTO)).isEqualTo(true);
+    @DisplayName("[SUCCESS] 총 주문 금액에 따른 증정 메뉴가 있는지 판단한다.")
+    @ParameterizedTest(name = "주문 메뉴 및 개수: {0}, 증정 메뉴가 있는가: {1}")
+    @CsvSource({"'타파스-1,제로콜라-1', false",
+            "'티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1', true",
+            "'티본스테이크-2,아이스크림-2', true"})
+    void isAdditionalGift(String input, boolean haveAdditionalGift){
+        OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO(input);
+        OrderMenuOuputDTO orderMenuOuputDTO = orderMenuService.inputOrder(orderMenuInputDTO);
+        assertThat(orderMenuService.hasAdditionalGift(orderMenuOuputDTO)).isEqualTo(haveAdditionalGift);
     }
 }
