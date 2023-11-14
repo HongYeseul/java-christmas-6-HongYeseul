@@ -65,8 +65,9 @@ class OrderDateServiceTest {
         assertThat(result).isEqualTo(discount);
     }
 
-    @Test
     @DisplayName("[SUCCESS] 평일 할인 금액을 계산한다.")
+    @ParameterizedTest(name = "예상 방문 날짜: {0}, 반환되어야 하는 크리스마스 디데이 할인 금액: {1}")
+    @CsvSource({"3, 4046", "1, 0", "28, 4046"})
     void calculateWeekDaySalePrice(){
         OrderDateOuputDTO orderDateOuputDTO = new OrderDateOuputDTO(3);
         BigDecimal result = orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO);
