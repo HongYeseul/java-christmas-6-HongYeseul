@@ -68,10 +68,13 @@ class OrderMenuServiceTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @Test
-    @DisplayName("[ERROR] 중복된 메뉴 주문을 하면 예외가 발생한다..")
-    void orderDuplicateMenu(){
-        OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO("티본스테이크-1,티본스테이크-3");
+    @DisplayName("[ERROR] 중복된 메뉴 주문을 하면 예외가 발생한다.")
+    @ValueSource(strings = {"티본스테이크-1,티본스테이크-3",
+            "제로콜라-1,제로콜라-2",
+            "레드와인-2,타파스-3,타파스-1"})
+    @ParameterizedTest
+    void orderDuplicateMenu(String input){
+        OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO(input);
         assertThatThrownBy(() -> orderMenuService.inputOrder(orderMenuInputDTO))
                 .isInstanceOf(IllegalArgumentException.class);
     }
