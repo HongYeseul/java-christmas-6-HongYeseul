@@ -11,4 +11,7 @@ public class Threshold {
     public static final Integer BIG_DECIMAL_FLAG_THRESHOLD = 0;
 
     public static final Integer MAXIMUM_QUANTITY = 20;
+
+    public static final boolean HAVE_BENEFIT = true;
+    public static final boolean NONE_BENEFIT = false;
 }

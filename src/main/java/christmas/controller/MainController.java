@@ -9,18 +9,20 @@ import christmas.view.InputView;
 import christmas.view.OutputView;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+
+import static christmas.model.constants.DiscountRate.MINIMUM_DISCOUNT_AMOUNT;
+import static christmas.service.constants.Threshold.BIG_DECIMAL_FLAG_THRESHOLD;
+import static christmas.service.constants.Threshold.HAVE_BENEFIT;
+import static christmas.service.constants.Threshold.NONE_BENEFIT;
 
 public class MainController {
-    private DateController dateController;
-    private MenuController menuController;
     private final InputView inputView;
     private final OutputView outputView;
     private final OrderDateService orderDateService;
     private final OrderMenuService orderMenuService;
     private final OrderService orderService;
 
-    BigDecimal totalBenefit = new BigDecimal("0");
+    BigDecimal totalBenefit = BigDecimal.ZERO;
 
     public MainController(
             final InputView inputView,
@@ -37,8 +39,8 @@ public class MainController {
     }
 
     public void runEventPlanner(){
-        dateController = new DateController(inputView, outputView, orderDateService);
-        menuController = new MenuController(inputView, outputView, orderMenuService);
+        DateController dateController = new DateController(inputView, outputView, orderDateService);
+        MenuController menuController = new MenuController(inputView, outputView, orderMenuService);
 
         OrderDateOuputDTO orderDateOuputDTO = dateController.askVisitDate();
         OrderMenuOuputDTO orderMenuOuputDTO = menuController.askOrder();
@@ -65,17 +67,17 @@ public class MainController {
 
     private void grantAdditionalBenefits(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
         if (haveBenefit(orderMenuOuputDTO)) {
-            showBenefitsDetail(orderDateOuputDTO, orderMenuOuputDTO, true);
-            showTotalBenefit(orderDateOuputDTO, orderMenuOuputDTO, true);
+            showBenefitsDetail(orderDateOuputDTO, orderMenuOuputDTO, HAVE_BENEFIT);
+            showTotalBenefit(orderDateOuputDTO, orderMenuOuputDTO, HAVE_BENEFIT);
             return;
         }
-        showBenefitsDetail(orderDateOuputDTO, new OrderMenuOuputDTO(new ArrayList<>(), new ArrayList<>()), false);
-        showTotalBenefit(orderDateOuputDTO, orderMenuOuputDTO, false);
+        showBenefitsDetail(orderDateOuputDTO, new OrderMenuOuputDTO(), NONE_BENEFIT);
+        showTotalBenefit(orderDateOuputDTO, orderMenuOuputDTO, NONE_BENEFIT);
     }
 
     private boolean haveBenefit(OrderMenuOuputDTO orderMenuOuputDTO) {
         return orderMenuService.calculateTotal(orderMenuOuputDTO)
-                .compareTo(new BigDecimal("10000")) > 0;
+                .compareTo(MINIMUM_DISCOUNT_AMOUNT) > BIG_DECIMAL_FLAG_THRESHOLD;
     }
 
     /**
