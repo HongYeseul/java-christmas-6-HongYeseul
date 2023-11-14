@@ -2,7 +2,7 @@ package christmas.service;
 
 import christmas.dto.OrderDateInputDTO;
 import christmas.dto.OrderDateOuputDTO;
-import christmas.dto.OrderMenuOuputDTO;
+import christmas.dto.OrderMenuOutputDTO;
 import christmas.model.menu.Menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +21,7 @@ class OrderDateServiceTest {
     OrderDateService orderDateService = new OrderDateService();
     List<Menu> expectedOrderMenu = new ArrayList<>();
     List<Integer> orderCount = new ArrayList<>();
-    OrderMenuOuputDTO orderMenuOuputDTO;
+    OrderMenuOutputDTO orderMenuOutputDTO;
 
     @BeforeEach
     void init(){
@@ -31,7 +31,7 @@ class OrderDateServiceTest {
         orderCount.add(1);
         orderCount.add(1);
         orderCount.add(2);
-        orderMenuOuputDTO = new OrderMenuOuputDTO(expectedOrderMenu, orderCount);
+        orderMenuOutputDTO = new OrderMenuOutputDTO(expectedOrderMenu, orderCount);
     }
 
     @DisplayName("[SUCCESS] 날짜를 정상적인 값으로 입력하면 예외가 발생하지 않는다.")
@@ -66,7 +66,7 @@ class OrderDateServiceTest {
     @CsvSource({"3, 4046", "1, 0", "28, 4046"})
     void calculateWeekDaySalePrice(int plannedDate,BigDecimal discount){
         OrderDateOuputDTO orderDateOuputDTO = new OrderDateOuputDTO(plannedDate);
-        BigDecimal result = orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO);
+        BigDecimal result = orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOutputDTO);
         assertThat(result).isEqualTo(discount);
     }
 
@@ -76,7 +76,7 @@ class OrderDateServiceTest {
     @CsvSource({"3, 0", "1, 4046", "28, 0"})
     void calculateWeekendSalePrice(int plannedDate,BigDecimal discount){
         OrderDateOuputDTO orderDateOuputDTO = new OrderDateOuputDTO(plannedDate);
-        BigDecimal result = orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOuputDTO);
+        BigDecimal result = orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOutputDTO);
         assertThat(result).isEqualTo(discount);
     }
 

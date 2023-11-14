@@ -2,7 +2,7 @@ package christmas.service;
 
 import christmas.dto.OrderDateOuputDTO;
 import christmas.dto.OrderMenuInputDTO;
-import christmas.dto.OrderMenuOuputDTO;
+import christmas.dto.OrderMenuOutputDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -24,14 +24,14 @@ class OrderServiceTest {
     void calculateTotalSalePrice(String input, int orderDate, BigDecimal totalBenefit){
         OrderDateOuputDTO orderDateOuputDTO = new OrderDateOuputDTO(orderDate);
         OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO(input);
-        OrderMenuOuputDTO orderMenuOuputDTO = orderMenuService.inputOrder(orderMenuInputDTO);
+        OrderMenuOutputDTO orderMenuOutputDTO = orderMenuService.inputOrder(orderMenuInputDTO);
 
         BigDecimal result = orderService.calculateTotalSalePrice(
                 orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
-                orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
-                orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOuputDTO),
+                orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOutputDTO),
+                orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOutputDTO),
                 orderDateService.calculateSpecialSalePrice(orderDateOuputDTO),
-                orderMenuService.hasAdditionalGift(orderMenuOuputDTO)
+                orderMenuService.hasAdditionalGift(orderMenuOutputDTO)
         );
 
         assertThat(result).isEqualTo(totalBenefit);
