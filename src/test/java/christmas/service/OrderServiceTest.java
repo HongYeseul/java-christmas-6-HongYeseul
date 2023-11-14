@@ -46,7 +46,6 @@ class OrderServiceTest {
             "'티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1', 3, 31246",
             "'아이스크림-2', 25, 8446"})
     void calculateTotalSalePrice(String input, int orderDate, BigDecimal totalBenefit){
-
         OrderDateOuputDTO orderDateOuputDTO = new OrderDateOuputDTO(orderDate);
         OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO(input);
         OrderMenuOuputDTO orderMenuOuputDTO = orderMenuService.inputOrder(orderMenuInputDTO);
@@ -62,14 +61,13 @@ class OrderServiceTest {
         assertThat(result).isEqualTo(totalBenefit);
     }
 
-    @Test
     @DisplayName("[SUCCESS] 할인 후 예상 결제 금액을 정상 반환힌디.")
-    void calculateTotalCharge(){
-        BigDecimal result = orderService.calculateTotalCharge(
-                new BigDecimal("142000"),
-                new BigDecimal("31246"),
-                true);
-        assertThat(result).isEqualTo(new BigDecimal("135754"));
+    @ParameterizedTest(name = "총 결제 금액: {0}, 혜택 금액: {1}, 증정 메뉴가 있는가: {2},반환되어야 하는 총 혜택 금액: {3}")
+    @CsvSource({"142000, 31246, true, 135754",
+            "10000, 8446, false, 1554"})
+    void calculateTotalCharge(BigDecimal totalPrice, BigDecimal benefit, boolean hasGift, BigDecimal resultPrice){
+        BigDecimal result = orderService.calculateTotalCharge(totalPrice, benefit, hasGift);
+        assertThat(result).isEqualTo(resultPrice);
     }
 
     @Test
