@@ -46,10 +46,13 @@ class OrderMenuServiceTest {
         orderMenuService.inputOrder(orderMenuInputDTO);
     }
 
-    @Test
     @DisplayName("[ERROR] 메뉴를 20개보다 많이 주문하면 예외가 발생한다.")
-    void orderOverThenNormalQuantity(){
-        OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO("티본스테이크-10,바비큐립-5,초코케이크-6");
+    @ValueSource(strings = {"티본스테이크-10,바비큐립-5,초코케이크-6",
+            "초코케이크-27",
+            "시저샐러드-5,티본스테이크-4,크리스마스파스타-5,제로콜라-5,아이스크림6"})
+    @ParameterizedTest
+    void orderOverThenNormalQuantity(String input){
+        OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO(input);
         assertThatThrownBy(() -> orderMenuService.inputOrder(orderMenuInputDTO))
                 .isInstanceOf(IllegalArgumentException.class);
     }
