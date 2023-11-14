@@ -40,10 +40,10 @@ public class MainController {
 
     public void runEventPlanner(){
         DateController dateController = new DateController(inputView, orderDateService);
-        MenuController menuController = new MenuController(inputView, outputView, orderMenuService);
+        MenuController menuController = new MenuController(inputView, orderMenuService);
 
         OrderDateOutputDTO orderDateOutputDTO = getVisitDate(dateController);
-        OrderMenuOutputDTO orderMenuOutputDTO = menuController.askOrder();
+        OrderMenuOutputDTO orderMenuOutputDTO = getOrder(menuController);
 
         showBenefits(orderDateOutputDTO, orderMenuOutputDTO);
         showEventBadge(totalBenefit);
@@ -53,6 +53,11 @@ public class MainController {
     public OrderDateOutputDTO getVisitDate(DateController dateController) {
         outputView.askPlannedDate();
         return dateController.process();
+    }
+
+    public OrderMenuOutputDTO getOrder(MenuController menuController) {
+        outputView.askMenuAndCount();
+        return menuController.process();
     }
 
     /**

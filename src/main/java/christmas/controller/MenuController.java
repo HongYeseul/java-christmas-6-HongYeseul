@@ -1,32 +1,25 @@
 package christmas.controller;
 
+import christmas.controller.handler.RetryHandler;
+import christmas.dto.OrderDateOutputDTO;
 import christmas.dto.OrderMenuOutputDTO;
 import christmas.service.OrderMenuService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
-public class MenuController {
+public class MenuController extends RetryHandler<OrderMenuOutputDTO> {
     private final InputView inputView;
-    private final OutputView outputView;
     private final OrderMenuService orderMenuService;
-    public MenuController(InputView inputView, OutputView outputView, OrderMenuService orderMenuService){
+    public MenuController(InputView inputView, OrderMenuService orderMenuService){
         this.inputView = inputView;
-        this.outputView = outputView;
         this.orderMenuService = orderMenuService;
     }
 
     /**
      * 고객으로부터 주문할 메뉴와 개수를 입력받는 메서드
      */
-    public OrderMenuOutputDTO askOrder() {
-        // TODO: 예외 while문 개선
-        while (true) {
-            try {
-                outputView.askMenuAndCount();
-                return orderMenuService.inputOrder(inputView.readMenuAndCount());
-            } catch (IllegalArgumentException exception) {
-                outputView.errorMessage(exception.getMessage());
-            }
-        }
+    @Override
+    public OrderMenuOutputDTO doProcess() {
+        return orderMenuService.inputOrder(inputView.readMenuAndCount());
     }
 }
