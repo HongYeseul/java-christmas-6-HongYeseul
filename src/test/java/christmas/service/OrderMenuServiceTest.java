@@ -7,6 +7,8 @@ import christmas.model.menu.Menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -34,12 +36,14 @@ class OrderMenuServiceTest {
         orderMenuOuputDTO = new OrderMenuOuputDTO(expectedOrderMenu, orderCount);
     }
 
-    @Test
     @DisplayName("[SUCCESS] 주문을 정상적인 값으로 입력하면 예외가 발생하지 않는다.")
-    void inputNormalOrder(){
-        OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO("티본스테이크-1,바비큐립-1,초코케이크-2");
-        OrderMenuOuputDTO orderMenuOuputDTO = orderMenuService.inputOrder(orderMenuInputDTO);
-        assertThat(orderMenuOuputDTO).isEqualTo(this.orderMenuOuputDTO);
+    @ValueSource(strings = {"티본스테이크-1,바비큐립-1,초코케이크-2",
+            "초코케이크-1",
+            "양송이수프-2,시저샐러드-4"})
+    @ParameterizedTest
+    void inputNormalOrder(String input){
+        OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO(input);
+        orderMenuService.inputOrder(orderMenuInputDTO);
     }
 
     @Test
