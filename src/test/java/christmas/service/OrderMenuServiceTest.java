@@ -2,40 +2,18 @@ package christmas.service;
 
 import christmas.dto.OrderMenuInputDTO;
 import christmas.dto.OrderMenuOuputDTO;
-import christmas.model.customer.Order;
-import christmas.model.menu.Menu;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class OrderMenuServiceTest {
     OrderMenuService orderMenuService = new OrderMenuService();
-    List<Menu> expectedOrderMenu = new ArrayList<>();
-    List<Integer> orderCount = new ArrayList<>();
-    OrderMenuOuputDTO orderMenuOuputDTO;
-    Order order;
-
-    @BeforeEach
-    void init(){
-        expectedOrderMenu.add(Menu.T_BONE_STAKE);
-        expectedOrderMenu.add(Menu.BARBECUE_RIB);
-        expectedOrderMenu.add(Menu.CHOCO_CAKE);
-        orderCount.add(1);
-        orderCount.add(1);
-        orderCount.add(2);
-        order = new Order(expectedOrderMenu, orderCount);
-        orderMenuOuputDTO = new OrderMenuOuputDTO(expectedOrderMenu, orderCount);
-    }
 
     @DisplayName("[SUCCESS] 주문을 정상적인 값으로 입력하면 예외가 발생하지 않는다.")
     @ValueSource(strings = {"티본스테이크-1,바비큐립-1,초코케이크-2",
