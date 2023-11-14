@@ -10,7 +10,7 @@ import static christmas.model.constants.Day.CHRISTMAS_DAY;
 import static christmas.model.constants.Day.MONTH;
 import static christmas.model.constants.Day.ONE_DAY;
 import static christmas.model.constants.Day.YEAR;
-import static christmas.model.constants.DiscountRate.CHRISTMAS_DISCOUNT_RATE;
+import static christmas.model.constants.DiscountRate.CHRISTMAS_DISCOUNT_PRICE;
 import static christmas.model.validator.DateValidator.checkValidDate;
 
 public class OrderDate {
@@ -21,7 +21,7 @@ public class OrderDate {
     }
 
     public BigDecimal saleFromXMasDDay() {
-        return new BigDecimal(Integer.toString((date - ONE_DAY) * CHRISTMAS_DISCOUNT_RATE));
+        return new BigDecimal(Integer.toString((date - ONE_DAY) * CHRISTMAS_DISCOUNT_PRICE));
     }
 
     public boolean isWeekDay() {
