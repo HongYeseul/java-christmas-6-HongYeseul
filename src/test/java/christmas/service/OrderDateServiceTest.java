@@ -3,11 +3,9 @@ package christmas.service;
 import christmas.dto.OrderDateInputDTO;
 import christmas.dto.OrderDateOuputDTO;
 import christmas.dto.OrderMenuOuputDTO;
-import christmas.model.customer.OrderDate;
 import christmas.model.menu.Menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -24,11 +22,9 @@ class OrderDateServiceTest {
     List<Menu> expectedOrderMenu = new ArrayList<>();
     List<Integer> orderCount = new ArrayList<>();
     OrderMenuOuputDTO orderMenuOuputDTO;
-    OrderDate orderDate;
 
     @BeforeEach
     void init(){
-        orderDate = new OrderDate(3);
         expectedOrderMenu.add(Menu.T_BONE_STAKE);
         expectedOrderMenu.add(Menu.BARBECUE_RIB);
         expectedOrderMenu.add(Menu.CHOCO_CAKE);
