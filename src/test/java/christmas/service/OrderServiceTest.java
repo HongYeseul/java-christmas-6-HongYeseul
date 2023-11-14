@@ -2,7 +2,7 @@ package christmas.service;
 
 import christmas.dto.OrderDateOutputDTO;
 import christmas.dto.OrderMenuInputDTO;
-import christmas.dto.OrderMenuOuputDTO;
+import christmas.dto.OrderMenuOutputDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -24,7 +24,7 @@ class OrderServiceTest {
     void calculateTotalSalePrice(String input, int orderDate, BigDecimal totalBenefit){
         OrderDateOutputDTO orderDateOutputDTO = new OrderDateOutputDTO(orderDate);
         OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO(input);
-        OrderMenuOuputDTO orderMenuOutputDTO = orderMenuService.inputOrder(orderMenuInputDTO);
+        OrderMenuOutputDTO orderMenuOutputDTO = orderMenuService.inputOrder(orderMenuInputDTO);
 
         BigDecimal result = orderService.calculateTotalSalePrice(
                 orderDateService.calculateDDaySalePrice(orderDateOutputDTO),

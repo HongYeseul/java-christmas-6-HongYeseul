@@ -1,7 +1,7 @@
 package christmas.service;
 
 import christmas.dto.OrderMenuInputDTO;
-import christmas.dto.OrderMenuOuputDTO;
+import christmas.dto.OrderMenuOutputDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -84,7 +84,7 @@ class OrderMenuServiceTest {
             "'티본스테이크-2,아이스크림-2', true"})
     void isAdditionalGift(String input, boolean haveAdditionalGift){
         OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO(input);
-        OrderMenuOuputDTO orderMenuOuputDTO = orderMenuService.inputOrder(orderMenuInputDTO);
-        assertThat(orderMenuService.hasAdditionalGift(orderMenuOuputDTO)).isEqualTo(haveAdditionalGift);
+        OrderMenuOutputDTO orderMenuOutputDTO = orderMenuService.inputOrder(orderMenuInputDTO);
+        assertThat(orderMenuService.hasAdditionalGift(orderMenuOutputDTO)).isEqualTo(haveAdditionalGift);
     }
 }
