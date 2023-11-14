@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
@@ -79,12 +80,15 @@ class OrderMenuServiceTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @Test
     @DisplayName("[SUCCESS] 총 주문 금액을 계산할 수 있다.")
-    void calculateTotal(){
-        OrderMenuOuputDTO orderMenuOuputDTO = new OrderMenuOuputDTO(expectedOrderMenu, orderCount);
-        BigDecimal total = orderMenuService.calculateTotal(orderMenuOuputDTO);
-        assertThat(total).isEqualTo(new BigDecimal("139000"));
+    @ParameterizedTest(name = "예상 방문 날짜: {0}, 반환되어야 하는 총 주문 금액: {1}")
+    @CsvSource({"'타파스-1,제로콜라-1', 8500",
+            "'티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1', 142000",
+            "'아이스크림-2', 10000"})
+    void calculateTotal(String input, BigDecimal totalPrice){
+        OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO(input);
+        BigDecimal total = orderMenuService.calculateTotal(orderMenuService.inputOrder(orderMenuInputDTO));
+        assertThat(total).isEqualTo(totalPrice);
     }
 
     @Test
