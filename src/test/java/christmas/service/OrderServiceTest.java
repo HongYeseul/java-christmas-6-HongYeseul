@@ -3,16 +3,11 @@ package christmas.service;
 import christmas.dto.OrderDateOuputDTO;
 import christmas.dto.OrderMenuInputDTO;
 import christmas.dto.OrderMenuOuputDTO;
-import christmas.model.customer.OrderDate;
-import christmas.model.menu.Menu;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,24 +15,6 @@ class OrderServiceTest {
     OrderService orderService = new OrderService();
     OrderDateService orderDateService = new OrderDateService();
     OrderMenuService orderMenuService = new OrderMenuService();
-    List<Menu> expectedOrderMenu = new ArrayList<>();
-    List<Integer> orderCount = new ArrayList<>();
-    OrderDate orderDate;
-    OrderDateOuputDTO orderDateOuputDTO;
-    OrderMenuOuputDTO orderMenuOuputDTO;
-
-    @BeforeEach
-    void init(){
-        orderDate = new OrderDate(3);
-        orderDateOuputDTO = new OrderDateOuputDTO(3);
-        expectedOrderMenu.add(Menu.T_BONE_STAKE);
-        expectedOrderMenu.add(Menu.BARBECUE_RIB);
-        expectedOrderMenu.add(Menu.CHOCO_CAKE);
-        orderCount.add(1);
-        orderCount.add(1);
-        orderCount.add(2);
-        orderMenuOuputDTO = new OrderMenuOuputDTO(expectedOrderMenu, orderCount);
-    }
 
     @DisplayName("[SUCCESS] 총 혜택 금액을 계산한다.")
     @ParameterizedTest(name = "주문 메뉴 및 개수: {0}, 식당 예상 방문 날짜: {1}, 반환되어야 하는 총 혜택 금액: {2}")
