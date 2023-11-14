@@ -8,12 +8,15 @@ import christmas.model.menu.Menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class OrderDateServiceTest {
     OrderDateService orderDateService = new OrderDateService();
@@ -40,6 +43,15 @@ class OrderDateServiceTest {
         OrderDateInputDTO orderDateInputDTO = new OrderDateInputDTO(12);
         OrderDateOuputDTO orderDateResponseDTO = orderDateService.inputOrderDate(orderDateInputDTO);
         assertThat(orderDateResponseDTO.date()).isEqualTo(12);
+    }
+
+    @DisplayName("[ERROR] 날짜를 비정상적인 값으로 입력하면 예외가 발생한다.")
+    @ValueSource(ints = {0, -1, 32})
+    @ParameterizedTest
+    void inputAbnormalDate(int input){
+        OrderDateInputDTO orderDateInputDTO = new OrderDateInputDTO(input);
+        assertThatThrownBy(() -> orderDateService.inputOrderDate(orderDateInputDTO))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
