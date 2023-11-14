@@ -57,10 +57,13 @@ class OrderMenuServiceTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @Test
     @DisplayName("[ERROR] 음료만 주문하면 예외가 발생한다.")
-    void orderOnlyDrinks(){
-        OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO("레드와인-6");
+    @ValueSource(strings = {"레드와인-6",
+            "제로콜라-1,레드와인-2",
+            "레드와인-2,제로콜라-3,샴페인-1"})
+    @ParameterizedTest
+    void orderOnlyDrinks(String input){
+        OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO(input);
         assertThatThrownBy(() -> orderMenuService.inputOrder(orderMenuInputDTO))
                 .isInstanceOf(IllegalArgumentException.class);
     }
