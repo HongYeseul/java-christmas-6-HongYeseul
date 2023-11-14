@@ -9,6 +9,7 @@ import christmas.view.InputView;
 import christmas.view.OutputView;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class MainController {
     private DateController dateController;
@@ -19,7 +20,7 @@ public class MainController {
     private final OrderMenuService orderMenuService;
     private final OrderService orderService;
 
-    BigDecimal totalBenefit;
+    BigDecimal totalBenefit = new BigDecimal("0");
 
     public MainController(
             final InputView inputView,
@@ -57,16 +58,39 @@ public class MainController {
         outputView.totalOrderPrice(orderMenuService.calculateTotal(orderMenuOuputDTO));
         outputView.specialGift(orderMenuService.specialGift(orderMenuOuputDTO));
 
-        showBenefitsDetail(orderDateOuputDTO, orderMenuOuputDTO);
-        showTotalBenefit(orderDateOuputDTO, orderMenuOuputDTO);
+        grantAdditionalBenefits(orderDateOuputDTO, orderMenuOuputDTO);
+
         showResultPrice(totalBenefit, orderMenuOuputDTO);
+    }
+
+    private void grantAdditionalBenefits(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
+        if (haveBenefit(orderMenuOuputDTO)) {
+            showBenefitsDetail(orderDateOuputDTO, orderMenuOuputDTO, true);
+            showTotalBenefit(orderDateOuputDTO, orderMenuOuputDTO, true);
+            return;
+        }
+        showBenefitsDetail(orderDateOuputDTO, new OrderMenuOuputDTO(new ArrayList<>(), new ArrayList<>()), false);
+        showTotalBenefit(orderDateOuputDTO, orderMenuOuputDTO, false);
+    }
+
+    private boolean haveBenefit(OrderMenuOuputDTO orderMenuOuputDTO) {
+        return orderMenuService.calculateTotal(orderMenuOuputDTO)
+                .compareTo(new BigDecimal("10000")) > 0;
     }
 
     /**
      * showBenefits()에서 호출
      * <혜택 내역>을 출력하는 메서드
      */
-    private void showBenefitsDetail(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
+    private void showBenefitsDetail(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO, boolean isHaveBenefit) {
+        if (isHaveBenefit) {
+            showHaveBenefitDetail(orderDateOuputDTO, orderMenuOuputDTO);
+            return;
+        }
+        outputView.benefitsDetail(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
+    }
+
+    private void showHaveBenefitDetail(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
         outputView.benefitsDetail(
                 orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
                 orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
@@ -80,14 +104,16 @@ public class MainController {
      * showBenefits()에서 호출
      * <총 혜택 금액>을 출력하는 메서드
      */
-    private void showTotalBenefit(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
-        totalBenefit = orderService.calculateTotalSalePrice(
-                orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
-                orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
-                orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOuputDTO),
-                orderDateService.calculateSpecialSalePrice(orderDateOuputDTO),
-                orderMenuService.hasAdditionalGift(orderMenuOuputDTO)
-        );
+    private void showTotalBenefit(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOuputDTO orderMenuOuputDTO, boolean isHaveBenefit) {
+        if (isHaveBenefit) {
+            totalBenefit = orderService.calculateTotalSalePrice(
+                    orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
+                    orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
+                    orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOuputDTO),
+                    orderDateService.calculateSpecialSalePrice(orderDateOuputDTO),
+                    orderMenuService.hasAdditionalGift(orderMenuOuputDTO)
+            );
+        }
         outputView.showTotalBenefitPrice(totalBenefit);
     }
 
