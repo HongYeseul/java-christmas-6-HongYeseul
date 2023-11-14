@@ -70,7 +70,7 @@ public class OutputView {
             println();
             return;
         }
-        printbenefitList(dDay, weekDay, weekend, special, gift);
+        printBenefitList(dDay, weekDay, weekend, special, gift);
     }
 
     private boolean isNoneBenefit(BigDecimal dDay, BigDecimal weekDay, BigDecimal weekend, BigDecimal special, BigDecimal gift) {
@@ -81,7 +81,7 @@ public class OutputView {
                 && (gift.signum() == NO_QUANTITY));
     }
 
-    private void printbenefitList(BigDecimal dDay, BigDecimal weekDay, BigDecimal weekend, BigDecimal special, BigDecimal gift) {
+    private void printBenefitList(BigDecimal dDay, BigDecimal weekDay, BigDecimal weekend, BigDecimal special, BigDecimal gift) {
         print(
                 dDayBenefit(dDay)
                         + weekdayBenefit(weekDay)
