@@ -83,47 +83,23 @@ public class OutputView {
 
     private void printBenefitList(BigDecimal dDay, BigDecimal weekDay, BigDecimal weekend, BigDecimal special, BigDecimal gift) {
         print(
-                dDayBenefit(dDay)
-                        + weekdayBenefit(weekDay)
-                        + weekendBenefit(weekend)
-                        + specialDayBenefit(special)
-                        + giftBenefit(gift)
+                getBenefit(CHRISTMAS_D_DAY_DISCOUNT, dDay)
+                        + getBenefit(WEEKDAY_DISCOUNT, weekDay)
+                        + getBenefit(WEEKDAY_DISCOUNT, weekend)
+                        + getBenefit(SPECIAL_DISCOUNT, special)
+                        + getBenefit(GIFT_DISCOUNT, gift)
         );
     }
 
-    public String dDayBenefit(BigDecimal dDay) {
-        if (dDay.signum() == POSITIVE_RESULT_THRESHOLD) {
-            return CHRISTMAS_D_DAY_DISCOUNT + bigDecimalToString(dDay) + System.lineSeparator();
+    public String getBenefit(String discountType, BigDecimal discountPrice) {
+        if (isNumberPositive(discountPrice)) {
+            return discountType + bigDecimalToString(discountPrice) + System.lineSeparator();
         }
         return "";
     }
 
-    public String weekdayBenefit(BigDecimal weekday) {
-        if (weekday.signum() == POSITIVE_RESULT_THRESHOLD) {
-            return WEEKDAY_DISCOUNT + bigDecimalToString(weekday) + System.lineSeparator();
-        }
-        return "";
-    }
-
-    public String weekendBenefit(BigDecimal weekend) {
-        if (weekend.signum() == POSITIVE_RESULT_THRESHOLD) {
-            return WEEKEND_DISCOUNT + bigDecimalToString(weekend) + System.lineSeparator();
-        }
-        return "";
-    }
-
-    public String specialDayBenefit(BigDecimal specialDay) {
-        if (specialDay.signum() == POSITIVE_RESULT_THRESHOLD) {
-            return SPECIAL_DISCOUNT + bigDecimalToString(specialDay) + System.lineSeparator();
-        }
-        return "";
-    }
-
-    public String giftBenefit(BigDecimal gift) {
-        if (gift.signum() == POSITIVE_RESULT_THRESHOLD) {
-            return GIFT_DISCOUNT + bigDecimalToString(gift) + System.lineSeparator();
-        }
-        return "";
+    private boolean isNumberPositive(BigDecimal number) {
+        return number.signum() == POSITIVE_RESULT_THRESHOLD;
     }
 
     public void showTotalBenefitPrice(BigDecimal totalBenefit) {
