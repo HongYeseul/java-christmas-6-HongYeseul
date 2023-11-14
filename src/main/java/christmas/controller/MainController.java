@@ -50,11 +50,19 @@ public class MainController {
         inputView.close();
     }
 
+    /**
+     * 고객으로부터 식당 예상 방문 날짜를 입력 받는 메서드
+     * 예외 발생시 재입력
+     */
     public OrderDateOutputDTO getVisitDate(DateController dateController) {
         outputView.askPlannedDate();
         return dateController.process();
     }
 
+    /**
+     * 고객으로부터 주문할 메뉴와 메뉴 개수를 입력 받는 메서드
+     * 예외 발생시 재입력
+     */
     public OrderMenuOutputDTO getOrder(MenuController menuController) {
         outputView.askMenuAndCount();
         return menuController.process();
@@ -75,6 +83,10 @@ public class MainController {
         showResultPrice(totalBenefit, orderMenuOutputDTO);
     }
 
+    /**
+     * 해당 주문이 혜택을 받을 수 있는지 검사 후 출력
+     * (주문 금액 10,000 이상 이벤트 적용)
+     */
     private void grantAdditionalBenefits(OrderDateOutputDTO orderDateOutputDTO, OrderMenuOutputDTO orderMenuOutputDTO) {
         if (haveBenefit(orderMenuOutputDTO)) {
             showBenefitsDetail(orderDateOutputDTO, orderMenuOutputDTO, HAVE_BENEFIT);
@@ -142,7 +154,7 @@ public class MainController {
     }
 
     /**
-     * <이벤트 배지> 출력하는 메서드
+     * <이벤트 배지>를 출력하는 메서드
      */
     private void showEventBadge(BigDecimal totalBenefit) {
         outputView.showEventBadge(orderService.makeEventBadge(totalBenefit));
