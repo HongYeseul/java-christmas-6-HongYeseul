@@ -37,12 +37,13 @@ class OrderDateServiceTest {
         orderMenuOuputDTO = new OrderMenuOuputDTO(expectedOrderMenu, orderCount);
     }
 
-    @Test
     @DisplayName("[SUCCESS] 날짜를 정상적인 값으로 입력하면 예외가 발생하지 않는다.")
-    void inputNormalDate(){
-        OrderDateInputDTO orderDateInputDTO = new OrderDateInputDTO(12);
+    @ValueSource(ints = {1, 10, 31})
+    @ParameterizedTest
+    void inputNormalDate(int input){
+        OrderDateInputDTO orderDateInputDTO = new OrderDateInputDTO(input);
         OrderDateOuputDTO orderDateResponseDTO = orderDateService.inputOrderDate(orderDateInputDTO);
-        assertThat(orderDateResponseDTO.date()).isEqualTo(12);
+        assertThat(orderDateResponseDTO.date()).isEqualTo(input);
     }
 
     @DisplayName("[ERROR] 날짜를 비정상적인 값으로 입력하면 예외가 발생한다.")
