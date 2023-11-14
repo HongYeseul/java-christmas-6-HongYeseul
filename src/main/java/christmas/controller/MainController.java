@@ -98,7 +98,7 @@ public class MainController {
                 orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
                 orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOuputDTO),
                 orderDateService.calculateSpecialSalePrice(orderDateOuputDTO),
-                orderMenuService.calculateGiftPrice(orderMenuService.hasAdditionalGift(orderMenuOuputDTO))
+                orderMenuService.getGiftPrice(orderMenuService.hasAdditionalGift(orderMenuOuputDTO))
         );
     }
 
