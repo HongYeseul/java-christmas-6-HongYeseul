@@ -11,11 +11,11 @@ import static christmas.dto.constants.FormatUnit.QUANTITY_UNIT;
 /**
  * 주문 성공시 반환: 사용자가 구문한 리스트
  */
-public record OrderMenuOutputDTO(List<Menu> menu, List<Integer> menuCount) {
+public record OrderMenuOuputDTO(List<Menu> menu, List<Integer> menuCount) {
     private static final ArrayList<Menu> MAKE_EMPTY_MENU_LIST = new ArrayList<>();
     private static final ArrayList<Integer> MAKE_EMPTY_QUANTITY_LIST = new ArrayList<>();
 
-    public OrderMenuOutputDTO() {
+    public OrderMenuOuputDTO() {
         this(MAKE_EMPTY_MENU_LIST, MAKE_EMPTY_QUANTITY_LIST);
     }
 

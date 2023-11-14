@@ -1,7 +1,7 @@
 package christmas.controller;
 
-import christmas.dto.OrderDateOuputDTO;
-import christmas.dto.OrderMenuOutputDTO;
+import christmas.dto.OrderDateOutputDTO;
+import christmas.dto.OrderMenuOuputDTO;
 import christmas.service.OrderDateService;
 import christmas.service.OrderMenuService;
 import christmas.service.OrderService;
@@ -42,10 +42,10 @@ public class MainController {
         DateController dateController = new DateController(inputView, outputView, orderDateService);
         MenuController menuController = new MenuController(inputView, outputView, orderMenuService);
 
-        OrderDateOuputDTO orderDateOuputDTO = dateController.askVisitDate();
-        OrderMenuOutputDTO orderMenuOutputDTO = menuController.askOrder();
+        OrderDateOutputDTO orderDateOutputDTO = dateController.askVisitDate();
+        OrderMenuOuputDTO orderMenuOuputDTO = menuController.askOrder();
 
-        showBenefits(orderDateOuputDTO, orderMenuOutputDTO);
+        showBenefits(orderDateOutputDTO, orderMenuOuputDTO);
         showEventBadge(totalBenefit);
         inputView.close();
     }
@@ -53,30 +53,30 @@ public class MainController {
     /**
      * 모든 이벤트 혜택 출력 값을 처리하는 메서드
      */
-    private void showBenefits(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOutputDTO orderMenuOutputDTO) {
-        outputView.startBenefitPreview(orderDateOuputDTO);
-        outputView.orderMenuList(orderMenuOutputDTO.getOrderList());
+    private void showBenefits(OrderDateOutputDTO orderDateOutputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
+        outputView.startBenefitPreview(orderDateOutputDTO);
+        outputView.orderMenuList(orderMenuOuputDTO.getOrderList());
 
-        outputView.totalOrderPrice(orderMenuService.calculateTotal(orderMenuOutputDTO));
-        outputView.specialGift(orderMenuService.specialGift(orderMenuOutputDTO));
+        outputView.totalOrderPrice(orderMenuService.calculateTotal(orderMenuOuputDTO));
+        outputView.specialGift(orderMenuService.specialGift(orderMenuOuputDTO));
 
-        grantAdditionalBenefits(orderDateOuputDTO, orderMenuOutputDTO);
+        grantAdditionalBenefits(orderDateOutputDTO, orderMenuOuputDTO);
 
-        showResultPrice(totalBenefit, orderMenuOutputDTO);
+        showResultPrice(totalBenefit, orderMenuOuputDTO);
     }
 
-    public void grantAdditionalBenefits(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOutputDTO orderMenuOutputDTO) {
-        if (haveBenefit(orderMenuOutputDTO)) {
-            showBenefitsDetail(orderDateOuputDTO, orderMenuOutputDTO, HAVE_BENEFIT);
-            showTotalBenefit(orderDateOuputDTO, orderMenuOutputDTO, HAVE_BENEFIT);
+    public void grantAdditionalBenefits(OrderDateOutputDTO orderDateOutputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
+        if (haveBenefit(orderMenuOuputDTO)) {
+            showBenefitsDetail(orderDateOutputDTO, orderMenuOuputDTO, HAVE_BENEFIT);
+            showTotalBenefit(orderDateOutputDTO, orderMenuOuputDTO, HAVE_BENEFIT);
             return;
         }
-        showBenefitsDetail(orderDateOuputDTO, new OrderMenuOutputDTO(), NONE_BENEFIT);
-        showTotalBenefit(orderDateOuputDTO, orderMenuOutputDTO, NONE_BENEFIT);
+        showBenefitsDetail(orderDateOutputDTO, new OrderMenuOuputDTO(), NONE_BENEFIT);
+        showTotalBenefit(orderDateOutputDTO, orderMenuOuputDTO, NONE_BENEFIT);
     }
 
-    private boolean haveBenefit(OrderMenuOutputDTO orderMenuOutputDTO) {
-        return orderMenuService.calculateTotal(orderMenuOutputDTO)
+    private boolean haveBenefit(OrderMenuOuputDTO orderMenuOuputDTO) {
+        return orderMenuService.calculateTotal(orderMenuOuputDTO)
                 .compareTo(MINIMUM_DISCOUNT_AMOUNT) > BIG_DECIMAL_FLAG_THRESHOLD;
     }
 
@@ -84,21 +84,21 @@ public class MainController {
      * showBenefits()에서 호출
      * <혜택 내역>을 출력하는 메서드
      */
-    private void showBenefitsDetail(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOutputDTO orderMenuOutputDTO, boolean isHaveBenefit) {
+    private void showBenefitsDetail(OrderDateOutputDTO orderDateOutputDTO, OrderMenuOuputDTO orderMenuOuputDTO, boolean isHaveBenefit) {
         if (isHaveBenefit) {
-            showHaveBenefitDetail(orderDateOuputDTO, orderMenuOutputDTO);
+            showHaveBenefitDetail(orderDateOutputDTO, orderMenuOuputDTO);
             return;
         }
         outputView.benefitsDetail(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
     }
 
-    private void showHaveBenefitDetail(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOutputDTO orderMenuOutputDTO) {
+    private void showHaveBenefitDetail(OrderDateOutputDTO orderDateOutputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
         outputView.benefitsDetail(
-                orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
-                orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOutputDTO),
-                orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOutputDTO),
-                orderDateService.calculateSpecialSalePrice(orderDateOuputDTO),
-                orderMenuService.getGiftPrice(orderMenuService.hasAdditionalGift(orderMenuOutputDTO))
+                orderDateService.calculateDDaySalePrice(orderDateOutputDTO),
+                orderDateService.calculateWeekDaySalePrice(orderDateOutputDTO, orderMenuOuputDTO),
+                orderDateService.calculateWeekendSalePrice(orderDateOutputDTO, orderMenuOuputDTO),
+                orderDateService.calculateSpecialSalePrice(orderDateOutputDTO),
+                orderMenuService.getGiftPrice(orderMenuService.hasAdditionalGift(orderMenuOuputDTO))
         );
     }
 
@@ -106,14 +106,14 @@ public class MainController {
      * showBenefits()에서 호출
      * <총 혜택 금액>을 출력하는 메서드
      */
-    private void showTotalBenefit(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOutputDTO orderMenuOutputDTO, boolean isHaveBenefit) {
+    private void showTotalBenefit(OrderDateOutputDTO orderDateOutputDTO, OrderMenuOuputDTO orderMenuOuputDTO, boolean isHaveBenefit) {
         if (isHaveBenefit) {
             totalBenefit = orderService.calculateTotalSalePrice(
-                    orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
-                    orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOutputDTO),
-                    orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOutputDTO),
-                    orderDateService.calculateSpecialSalePrice(orderDateOuputDTO),
-                    orderMenuService.hasAdditionalGift(orderMenuOutputDTO)
+                    orderDateService.calculateDDaySalePrice(orderDateOutputDTO),
+                    orderDateService.calculateWeekDaySalePrice(orderDateOutputDTO, orderMenuOuputDTO),
+                    orderDateService.calculateWeekendSalePrice(orderDateOutputDTO, orderMenuOuputDTO),
+                    orderDateService.calculateSpecialSalePrice(orderDateOutputDTO),
+                    orderMenuService.hasAdditionalGift(orderMenuOuputDTO)
             );
         }
         outputView.showTotalBenefitPrice(totalBenefit);
@@ -123,11 +123,11 @@ public class MainController {
      * showBenefits()에서 호출
      * <할인 후 예상 결제 금액>을 출력하는 메서드
      */
-    private void showResultPrice(BigDecimal totalBenefit, OrderMenuOutputDTO orderMenuOutputDTO) {
+    private void showResultPrice(BigDecimal totalBenefit, OrderMenuOuputDTO orderMenuOuputDTO) {
         BigDecimal resultBenefit = orderService.calculateTotalCharge(
-                orderMenuService.calculateTotal(orderMenuOutputDTO),
+                orderMenuService.calculateTotal(orderMenuOuputDTO),
                 totalBenefit,
-                orderMenuService.hasAdditionalGift(orderMenuOutputDTO));
+                orderMenuService.hasAdditionalGift(orderMenuOuputDTO));
         outputView.showResultPrice(resultBenefit);
     }
 

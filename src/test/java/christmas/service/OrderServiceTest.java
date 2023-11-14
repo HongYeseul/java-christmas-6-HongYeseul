@@ -1,8 +1,8 @@
 package christmas.service;
 
-import christmas.dto.OrderDateOuputDTO;
+import christmas.dto.OrderDateOutputDTO;
 import christmas.dto.OrderMenuInputDTO;
-import christmas.dto.OrderMenuOutputDTO;
+import christmas.dto.OrderMenuOuputDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -22,15 +22,15 @@ class OrderServiceTest {
             "'티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1', 3, 31246",
             "'아이스크림-2', 25, 8446"})
     void calculateTotalSalePrice(String input, int orderDate, BigDecimal totalBenefit){
-        OrderDateOuputDTO orderDateOuputDTO = new OrderDateOuputDTO(orderDate);
+        OrderDateOutputDTO orderDateOutputDTO = new OrderDateOutputDTO(orderDate);
         OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO(input);
-        OrderMenuOutputDTO orderMenuOutputDTO = orderMenuService.inputOrder(orderMenuInputDTO);
+        OrderMenuOuputDTO orderMenuOutputDTO = orderMenuService.inputOrder(orderMenuInputDTO);
 
         BigDecimal result = orderService.calculateTotalSalePrice(
-                orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
-                orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOutputDTO),
-                orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOutputDTO),
-                orderDateService.calculateSpecialSalePrice(orderDateOuputDTO),
+                orderDateService.calculateDDaySalePrice(orderDateOutputDTO),
+                orderDateService.calculateWeekDaySalePrice(orderDateOutputDTO, orderMenuOutputDTO),
+                orderDateService.calculateWeekendSalePrice(orderDateOutputDTO, orderMenuOutputDTO),
+                orderDateService.calculateSpecialSalePrice(orderDateOutputDTO),
                 orderMenuService.hasAdditionalGift(orderMenuOutputDTO)
         );
 

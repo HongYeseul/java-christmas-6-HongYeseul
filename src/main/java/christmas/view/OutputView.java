@@ -1,6 +1,6 @@
 package christmas.view;
 
-import christmas.dto.OrderDateOuputDTO;
+import christmas.dto.OrderDateOutputDTO;
 
 import java.math.BigDecimal;
 
@@ -25,7 +25,6 @@ import static christmas.view.constants.UserInterfaceMessage.ASK_PLANNED_DATE;
 import static christmas.view.constants.UserInterfaceMessage.START_EVENT_PLANNER_MESSAGE;
 import static christmas.view.constants.UserInterfaceMessage.TOTAL_BENEFIT_PRICE;
 import static christmas.view.constants.UserInterfaceMessage.WEEKDAY_DISCOUNT;
-import static christmas.view.constants.UserInterfaceMessage.WEEKEND_DISCOUNT;
 import static christmas.view.validator.ExceptionMessage.ERROR_TAG;
 
 public class OutputView {
@@ -41,8 +40,8 @@ public class OutputView {
         print(ASK_MENU_AND_COUNT);
     }
 
-    public void startBenefitPreview(OrderDateOuputDTO orderDateOuputDTO) {
-        print(String.format(SHOW_EVENT_BENEFITS, MONTH, orderDateOuputDTO.date()));
+    public void startBenefitPreview(OrderDateOutputDTO orderDateOutputDTO) {
+        print(String.format(SHOW_EVENT_BENEFITS, MONTH, orderDateOutputDTO.date()));
     }
 
     public void orderMenuList(String orderList) {

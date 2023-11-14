@@ -1,8 +1,8 @@
 package christmas.service;
 
 import christmas.dto.OrderDateInputDTO;
-import christmas.dto.OrderDateOuputDTO;
-import christmas.dto.OrderMenuOutputDTO;
+import christmas.dto.OrderDateOutputDTO;
+import christmas.dto.OrderMenuOuputDTO;
 import christmas.model.customer.Order;
 import christmas.model.customer.OrderDate;
 
@@ -17,16 +17,16 @@ public class OrderDateService {
     /**
     * inputOrderDate: 고객이 식당 방문 날짜 입력시 DateDTO -> OrderDate 저장
     * */
-    public OrderDateOuputDTO inputOrderDate(OrderDateInputDTO requestDTO){
+    public OrderDateOutputDTO inputOrderDate(OrderDateInputDTO requestDTO){
         orderDate = new OrderDate(requestDTO.date());
-        return new OrderDateOuputDTO(requestDTO.date());
+        return new OrderDateOutputDTO(requestDTO.date());
     }
 
     /**
      * 크리스마스 디데이 할인 금액 계산
      */
-    public BigDecimal calculateDDaySalePrice(OrderDateOuputDTO orderDateOuputDTO) {
-        OrderDate orderDate = new OrderDate(orderDateOuputDTO.date());
+    public BigDecimal calculateDDaySalePrice(OrderDateOutputDTO orderDateOutputDTO) {
+        OrderDate orderDate = new OrderDate(orderDateOutputDTO.date());
         if (orderDate.isAfterChristmas()) {
             return BigDecimal.ZERO;
         }
@@ -36,9 +36,9 @@ public class OrderDateService {
     /**
      * 평일 할인 금액 계산
      */
-    public BigDecimal calculateWeekDaySalePrice(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOutputDTO orderMenuOutputDTO) {
-        OrderDate orderDate = new OrderDate(orderDateOuputDTO.date());
-        Order order = new Order(orderMenuOutputDTO.menu(), orderMenuOutputDTO.menuCount());
+    public BigDecimal calculateWeekDaySalePrice(OrderDateOutputDTO orderDateOutputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
+        OrderDate orderDate = new OrderDate(orderDateOutputDTO.date());
+        Order order = new Order(orderMenuOuputDTO.menu(), orderMenuOuputDTO.menuCount());
         if (orderDate.isWeekDay()) {
             return WEEK_AND_WEEKEND_DISCOUNT.multiply(BigDecimal.valueOf(order.dessertCount()));
         }
@@ -48,9 +48,9 @@ public class OrderDateService {
     /**
      * 주말 할인 금액 계산
      */
-    public BigDecimal calculateWeekendSalePrice(OrderDateOuputDTO orderDateOuputDTO, OrderMenuOutputDTO orderMenuOutputDTO) {
-        OrderDate orderDate = new OrderDate(orderDateOuputDTO.date());
-        Order order = new Order(orderMenuOutputDTO.menu(), orderMenuOutputDTO.menuCount());
+    public BigDecimal calculateWeekendSalePrice(OrderDateOutputDTO orderDateOutputDTO, OrderMenuOuputDTO orderMenuOuputDTO) {
+        OrderDate orderDate = new OrderDate(orderDateOutputDTO.date());
+        Order order = new Order(orderMenuOuputDTO.menu(), orderMenuOuputDTO.menuCount());
 
         if (orderDate.isWeekend()) {
             return WEEK_AND_WEEKEND_DISCOUNT.multiply(BigDecimal.valueOf(order.mainDishCount()));
@@ -61,8 +61,8 @@ public class OrderDateService {
     /**
      * 특별 할인이 있는 날인지 계산
      */
-    public BigDecimal calculateSpecialSalePrice(OrderDateOuputDTO orderDateOuputDTO) {
-        OrderDate orderDate = new OrderDate(orderDateOuputDTO.date());
+    public BigDecimal calculateSpecialSalePrice(OrderDateOutputDTO orderDateOutputDTO) {
+        OrderDate orderDate = new OrderDate(orderDateOutputDTO.date());
         if (orderDate.isSpecialDay()) {
             return SPECIAL_DAY_DISCOUNT;
         }
