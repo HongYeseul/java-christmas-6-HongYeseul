@@ -69,8 +69,16 @@ class OrderMenuServiceTest {
         assertThat(total).isEqualTo(totalPrice);
     }
 
+    @DisplayName("[SUCCESS] 증정 이벤트를 하면 샴페인 가격을 반환한다.")
+    @ParameterizedTest(name = "샴페인을 받았는가: {0}, 반환 값(증정 받은 제품의 가격): {1}")
+    @CsvSource({"true, 25000", "false, 0"})
+    void getGiftPrice(boolean hasGift, BigDecimal expectedGiftPrice){
+        BigDecimal giftPrice = orderMenuService.getGiftPrice(hasGift);
+        assertThat(giftPrice).isEqualTo(expectedGiftPrice);
+    }
+
     @DisplayName("[SUCCESS] 총 주문 금액에 따른 증정 메뉴가 있는지 판단한다.")
-    @ParameterizedTest(name = "주문 메뉴 및 개수: {0}, 증정 메뉴가 있는가: {1}")
+    @ParameterizedTest(name = "주문 메뉴 및 개수: {0}, 반환 값(증정 메뉴가 있는가): {1}")
     @CsvSource({"'타파스-1,제로콜라-1', false",
             "'티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1', true",
             "'티본스테이크-2,아이스크림-2', true"})
