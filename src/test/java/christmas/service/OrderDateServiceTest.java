@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
@@ -55,12 +56,13 @@ class OrderDateServiceTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @Test
     @DisplayName("[SUCCESS] 크리스마스 디데이 할인 금액을 계산한다.")
-    void calculateDDaySalePrice(){
-        OrderDateOuputDTO orderDateOuputDTO = new OrderDateOuputDTO(3);
+    @ParameterizedTest(name = "예상 방문 날짜: {0}, 반환되어야 하는 크리스마스 디데이 할인 금액: {1}")
+    @CsvSource({"3, 1200", "26, 0", "25, 3400"})
+    void calculateDDaySalePrice(int plannedDate,BigDecimal discount){
+        OrderDateOuputDTO orderDateOuputDTO = new OrderDateOuputDTO(plannedDate);
         BigDecimal result = orderDateService.calculateDDaySalePrice(orderDateOuputDTO);
-        assertThat(result).isEqualTo(new BigDecimal("1200"));
+        assertThat(result).isEqualTo(discount);
     }
 
     @Test
