@@ -63,6 +63,17 @@ public class OrderMenuService {
     }
 
     /**
+     * 증정 이벤트를 하는지 계산
+     * 증정 이벤트 하면 -> 샴페인 가격 반환
+     */
+    public BigDecimal calculateGiftPrice(boolean hasGift) {
+        if (hasGift) {
+            return new BigDecimal(Menu.CHAMPAGNE.getPrice().toString());
+        }
+        return BigDecimal.ZERO;
+    }
+
+    /**
      * 증정 메뉴가 있는지 판단
      * : 12만원 이상 주문했는지 판단 후 샴페인 증정(return boolean)
      */

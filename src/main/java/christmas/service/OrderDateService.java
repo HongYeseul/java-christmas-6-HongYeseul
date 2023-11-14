@@ -69,15 +69,4 @@ public class OrderDateService {
         }
         return BigDecimal.ZERO;
     }
-
-    /**
-     * 증정 이벤트를 하는지 계산
-     * 증정 이벤트 하면 -> 샴페인 가격 반환
-     */
-    public BigDecimal calculateGiftPrice(boolean hasGift) {
-        if (hasGift) {
-            return new BigDecimal(Menu.CHAMPAGNE.getPrice().toString());
-        }
-        return BigDecimal.ZERO;
-    }
 }
