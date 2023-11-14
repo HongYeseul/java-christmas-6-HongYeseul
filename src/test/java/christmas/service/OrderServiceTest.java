@@ -1,12 +1,15 @@
 package christmas.service;
 
 import christmas.dto.OrderDateOuputDTO;
+import christmas.dto.OrderMenuInputDTO;
 import christmas.dto.OrderMenuOuputDTO;
 import christmas.model.customer.OrderDate;
 import christmas.model.menu.Menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class OrderServiceTest {
     OrderService orderService = new OrderService();
     OrderDateService orderDateService = new OrderDateService();
+    OrderMenuService orderMenuService = new OrderMenuService();
     List<Menu> expectedOrderMenu = new ArrayList<>();
     List<Integer> orderCount = new ArrayList<>();
     OrderDate orderDate;
@@ -36,18 +40,26 @@ class OrderServiceTest {
         orderMenuOuputDTO = new OrderMenuOuputDTO(expectedOrderMenu, orderCount);
     }
 
-    @Test
     @DisplayName("[SUCCESS] 총 혜택 금액을 계산한다.")
-    void calculateTotalSalePrice(){
+    @ParameterizedTest(name = "주문 메뉴 및 개수: {0}, 식당 예상 방문 날짜: {1}, 반환되어야 하는 총 혜택 금액: {2}")
+    @CsvSource({"'타파스-1,제로콜라-1', 26, 0",
+            "'티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1', 3, 31246",
+            "'아이스크림-2', 25, 8446"})
+    void calculateTotalSalePrice(String input, int orderDate, BigDecimal totalBenefit){
+
+        OrderDateOuputDTO orderDateOuputDTO = new OrderDateOuputDTO(orderDate);
+        OrderMenuInputDTO orderMenuInputDTO = new OrderMenuInputDTO(input);
+        OrderMenuOuputDTO orderMenuOuputDTO = orderMenuService.inputOrder(orderMenuInputDTO);
+
         BigDecimal result = orderService.calculateTotalSalePrice(
                 orderDateService.calculateDDaySalePrice(orderDateOuputDTO),
                 orderDateService.calculateWeekDaySalePrice(orderDateOuputDTO, orderMenuOuputDTO),
                 orderDateService.calculateWeekendSalePrice(orderDateOuputDTO, orderMenuOuputDTO),
                 orderDateService.calculateSpecialSalePrice(orderDateOuputDTO),
-                true
+                orderMenuService.hasAdditionalGift(orderMenuOuputDTO)
         );
 
-        assertThat(result).isEqualTo(new BigDecimal("31246"));
+        assertThat(result).isEqualTo(totalBenefit);
     }
 
     @Test
