@@ -5,6 +5,9 @@ import christmas.model.menu.Menu;
 import java.util.ArrayList;
 import java.util.List;
 
+import static christmas.dto.constants.FormatUnit.BLANK;
+import static christmas.dto.constants.FormatUnit.QUANTITY_UNIT;
+
 /**
  * 주문 성공시 반환: 사용자가 구문한 리스트
  */
@@ -17,12 +20,12 @@ public record OrderMenuOuputDTO(List<Menu> menu, List<Integer> menuCount) {
     }
 
     public String getOrderList(){
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder orderList = new StringBuilder();
         for(int i=0; i<menu.size(); i++){
-            stringBuilder.append(menu.get(i).getName()).append(" ")
-                    .append(menuCount.get(i)).append("개")
+            orderList.append(menu.get(i).getName()).append(BLANK)
+                    .append(menuCount.get(i)).append(QUANTITY_UNIT)
                     .append(System.lineSeparator());
         }
-        return stringBuilder.toString();
+        return orderList.toString();
     }
 }
