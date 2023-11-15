@@ -1,8 +1,8 @@
 # 🎄4주차 크리스마스 프로모션 🎄
 
 ## 프로젝트 구조
-![프로젝트 구성도](https://raw.githubusercontent.com/HongYeseul/java-christmas-6-HongYeseul/main/docs/imgs/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EA%B5%AC%EC%84%B1%EB%8F%84.png?token=GHSAT0AAAAAACGGY4N6DFIH7GWYTOOTXHOGZKUKBRQ)
-![프로젝트_구성도_UML](https://raw.githubusercontent.com/HongYeseul/java-christmas-6-HongYeseul/main/docs/imgs/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EA%B5%AC%EC%84%B1%EB%8F%84_%EB%8B%A8%EC%88%9C%ED%99%94_UML.png?token=GHSAT0AAAAAACGGY4N6LM4T4JZPYFYCH5ZGZKUKB5Q)
+![프로젝트_구성도](./imgs/프로젝트_구성도.png)
+![프로젝트_구성도_단순화_UML](./imgs/프로젝트_구성도_단순화_UML.png)
 
 ## 📚 고민의 흔적
 
