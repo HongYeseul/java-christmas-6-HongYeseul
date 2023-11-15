@@ -1,10 +1,11 @@
 # 🎄4주차 크리스마스 프로모션 🎄
 
 ## 프로젝트 구조
-![크리스마스 프로모션 프로젝트 구성도](https://raw.githubusercontent.com/HongYeseul/java-christmas-6-HongYeseul/main/docs/imgs/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EA%B5%AC%EC%84%B1%EB%8F%84.png?token=GHSAT0AAAAAACGGY4N72ZEO5ZTYMQOB3KSOZKUCDSQ)
-![크리스마스_프로모션_프로젝트_구성도_UML](https://raw.githubusercontent.com/HongYeseul/java-christmas-6-HongYeseul/main/docs/imgs/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EA%B5%AC%EC%84%B1%EB%8F%84_%EB%8B%A8%EC%88%9C%ED%99%94_UML.png?token=GHSAT0AAAAAACGGY4N67LEN4VWQICXAX2GQZKUCE7A)
+![프로젝트 구성도](https://raw.githubusercontent.com/HongYeseul/java-christmas-6-HongYeseul/main/docs/imgs/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EA%B5%AC%EC%84%B1%EB%8F%84.png?token=GHSAT0AAAAAACGGY4N7MLKSAHATYPZ7AX5MZKUJCRA)
+![프로젝트_구성도_UML](https://raw.githubusercontent.com/HongYeseul/java-christmas-6-HongYeseul/main/docs/imgs/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EA%B5%AC%EC%84%B1%EB%8F%84_%EB%8B%A8%EC%88%9C%ED%99%94_UML.png?token=GHSAT0AAAAAACGGY4N6BYYMCJI5TZFF4HIMZKUJDIA)
 
 ## 📚 고민의 흔적
+
 ✏️ 01. ```Controller-DTO-Service-Model 관계를 고민하며 설계하자.```
 
 - 3주 차 미션까지는 MVC의 개념을 적용시키자고 생각을 했었는데, 
