@@ -4,6 +4,7 @@ import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class ApplicationTest extends NsTest {
@@ -46,6 +47,42 @@ class ApplicationTest extends NsTest {
         assertSimpleTest(() -> {
             runException("3", "제로콜라-a");
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
+    @DisplayName("[ERROR] 날짜 입력 값이 없을시 예외가 발생한다.")
+    void inputDateNoneValue() {
+        assertSimpleTest(() -> {
+            runException(" ");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
+    @DisplayName("[ERROR] 주문 입력 값이 없을시 예외가 발생한다.")
+    void inputOrderNoneValue() {
+        assertSimpleTest(() -> {
+            runException("3", " ");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
+    @DisplayName("[ERROR] 메뉴를 0개 주문시 예외가 발생한다.")
+    void orderZeroQuantity(){
+        assertSimpleTest(() -> {
+            runException("3", "티본스테이크-0,바비큐립-5");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
+    @DisplayName("[ERROR] 메뉴를 중복 입력시 예외가 발생한다.")
+    void orderDuplicatedMenu(){
+        assertSimpleTest(() -> {
+            runException("3", "티본스테이크-2,티본스테이크-1");
+            assertThat(output()).contains("[ERROR] 중복된 메뉴를 입력하셨습니다. 다시 입력해 주세요.");
         });
     }
 
